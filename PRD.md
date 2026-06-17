@@ -1,8 +1,11 @@
-# Partnership Network Intelligence (PNI) Prototype - Product Requirements Document
+# Partnership Network Intelligence (PNI) Prototype - Partnership PRD
 
-**Version:** 1.0  
+**Framework:** Partnership Network Intelligence applied to requirements development  
+**Version:** 1.0 (Living Document)  
 **Date:** June 17, 2026  
 **Authors:** John Michael & Otis
+
+> *This is a Partnership PRD - using PNI methodology to collaboratively develop requirements in real-time rather than static planning. See DISCOVERY-LOG.md for framework innovation details.*
 
 ## Executive Summary
 
