@@ -138,6 +138,11 @@ button {
   background: transparent;
 }
 
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+
 /* ---------- Layout shell ---------- */
 
 .topnav {
@@ -955,20 +960,21 @@ main {
 }
 
 </style>
-<div id="dashboard-app">
+
+    <div id="dashboard-app">
       <header class="topnav">
         <div class="topnav-brand">
           <span class="mark"></span>
           Partnership Network Intelligence
         </div>
         <nav class="stepper">
-          <a class="stepper-step" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM"><span class="dot"></span>Welcome</a>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM"><span class="dot"></span>Welcome</a>
           <div class="stepper-sep"></div>
-          <a class="stepper-step" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA"><span class="dot"></span>Partnership Calibration</a>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA"><span class="dot"></span>Partnership Calibration</a>
           <div class="stepper-sep"></div>
-          <span class="stepper-step"><span class="dot"></span>Multi-AI Network Setup</span>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/LwyjViyYPCWjh6J7v6yiBe"><span class="dot"></span>Multi-AI Network Setup</a>
           <div class="stepper-sep"></div>
-          <span class="stepper-step"><span class="dot"></span>First Collaboration</span>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/Y7aqVh8nfyLiPf91PC1t7P"><span class="dot"></span>First Collaboration</a>
           <div class="stepper-sep"></div>
           <span class="stepper-step is-active"><span class="dot"></span>Partnership Dashboard</span>
         </nav>
@@ -1035,6 +1041,7 @@ main {
         </section>
       </main>
     </div>
+
 <script>
 /*
   Partnership Dashboard — vanilla JS, mirrors the pattern from app.js

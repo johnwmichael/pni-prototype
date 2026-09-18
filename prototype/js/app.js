@@ -301,48 +301,55 @@ function renderCalibration() {
   `;
 }
 
-// ---------- Stub routes for the rest of the journey ----------
+// ---------- Link-out cards for journey steps built as their own pages ----------
 
-function renderStub(title, description) {
+function renderJourneyLink({ title, description, href, cta }) {
   return `
     <div class="page-header">
       <h1>${title}</h1>
       <p>${description}</p>
     </div>
-    <div class="stub-card">
-      Not built in this prototype pass — Partnership Calibration was the focus.
-      The journey stepper above is wired so this screen is reachable, ready for
-      the next build pass.
-    </div>
-    <div class="step-actions">
-      <button class="btn btn-ghost" data-action="goto-journey" data-route="calibration">
-        ← Back to Partnership Calibration
-      </button>
-      <span></span>
-    </div>
-  `;
-}
-
-function renderDashboardLink() {
-  return `
-    <div class="page-header">
-      <h1>Partnership Dashboard</h1>
-      <p>Trust evolution, network intelligence, collaboration quality, and the decision trail — built as its own page.</p>
-    </div>
     <div class="card">
       <div class="card-title">Ready to view</div>
       <p class="hint" style="margin-top: var(--space-2);">
-        The dashboard is a separate, data-dense screen, so it lives on its own page
+        This step is a separate page in the journey, so it lives on its own screen
         rather than inside this step-by-step flow.
       </p>
       <div class="step-actions">
         <button class="btn btn-ghost" data-action="goto-journey" data-route="calibration">
           ← Back to Partnership Calibration
         </button>
-        <a class="btn btn-primary" href="../dashboard/index.html">Open Partnership Dashboard →</a>
+        <a class="btn btn-primary" href="${href}">${cta}</a>
       </div>
     </div>
   `;
+}
+
+function renderNetworkLink() {
+  return renderJourneyLink({
+    title: "Multi-AI Network Setup",
+    description: "Meet Maya, Devon, Priya, and Content AI, and preview how the network surfaces cross-agent agreement.",
+    href: "../network-setup/index.html",
+    cta: "Open Multi-AI Network Setup →",
+  });
+}
+
+function renderCollaborationLink() {
+  return renderJourneyLink({
+    title: "First Collaboration",
+    description: "Run a live task through the calibrated network — a predictive next step, a shared draft, and the network working alongside you.",
+    href: "../first-collaboration/index.html",
+    cta: "Open First Collaboration →",
+  });
+}
+
+function renderDashboardLink() {
+  return renderJourneyLink({
+    title: "Partnership Dashboard",
+    description: "Trust evolution, network intelligence, collaboration quality, and the decision trail — built as its own page.",
+    href: "../dashboard/index.html",
+    cta: "Open Partnership Dashboard →",
+  });
 }
 
 // ---------- Router ----------
@@ -357,16 +364,10 @@ function render() {
       root.innerHTML = renderCalibration();
       break;
     case "network":
-      root.innerHTML = renderStub(
-        "Multi-AI Network Setup",
-        "Confirm how Maya, Devon, and Priya coordinate and hand off context to one another."
-      );
+      root.innerHTML = renderNetworkLink();
       break;
     case "collaboration":
-      root.innerHTML = renderStub(
-        "First Collaboration",
-        "Run a live task through the calibrated network and see the three agents work together."
-      );
+      root.innerHTML = renderCollaborationLink();
       break;
     case "dashboard":
       root.innerHTML = renderDashboardLink();

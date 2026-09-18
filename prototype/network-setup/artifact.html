@@ -1,3 +1,6 @@
+<meta charset="utf-8">
+<title>Multi-AI Network Setup</title>
+<style>
 /*
   PNI — Nocturne Design System
   ----------------------------
@@ -592,3 +595,258 @@ main {
   text-align: left;
   color: var(--text-muted);
 }
+
+/*
+  Multi-AI Network Setup — builds on theme.css tokens.
+  Reuses agent-card / check-list / trust-pill from theme.css so agent
+  identity stays visually consistent with Partnership Calibration; the
+  only new pieces here are the page shell and the cross-team coordination
+  preview card.
+*/
+
+.network-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .network-wrap { padding: var(--space-4); }
+}
+
+.network-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 780px) {
+  .network-grid { grid-template-columns: 1fr; }
+}
+
+.agent-card .specialization-list {
+  margin-top: var(--space-2);
+}
+
+.dash-section {
+  margin-top: var(--space-6);
+}
+
+.dash-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dash-section-head h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dash-section-head p {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.coordination-quote {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.6;
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.coordination-quote b {
+  color: var(--accent-strong);
+}
+
+.coordination-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+</style>
+
+    <div id="network-app">
+      <header class="topnav">
+        <div class="topnav-brand">
+          <span class="mark"></span>
+          Partnership Network Intelligence
+        </div>
+        <nav class="stepper">
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM"><span class="dot"></span>Welcome</a>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA"><span class="dot"></span>Partnership Calibration</a>
+          <div class="stepper-sep"></div>
+          <span class="stepper-step is-active"><span class="dot"></span>Multi-AI Network Setup</span>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step" href="https://claude.ai/artifact/Y7aqVh8nfyLiPf91PC1t7P"><span class="dot"></span>First Collaboration</a>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo"><span class="dot"></span>Partnership Dashboard</a>
+        </nav>
+      </header>
+
+      <main class="network-wrap">
+        <div class="page-header">
+          <div class="eyebrow">Step 3 of 5 · Multi-AI Network Setup</div>
+          <h1>Meet your AI network</h1>
+          <p>
+            Maya, Devon, and Priya carry the trust and role settings you just calibrated.
+            Content AI joins here as the network's fourth member — the writing partner
+            the other three hand context to once a draft is underway.
+          </p>
+        </div>
+
+        <div class="agent-grid network-grid" id="agent-grid"></div>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Cross-team coordination</h2>
+              <p>A preview of how the network surfaces agreement between agents, not just individual suggestions.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-label">Example coordinated insight</div>
+            <p class="hint">
+              When two or more agents independently reach compatible conclusions, the network
+              surfaces it as one combined suggestion instead of two separate ones — so you review
+              a plan, not a pile of notifications.
+            </p>
+            <p class="coordination-quote">
+              <b>Maya + Priya agreement:</b> ROI-focused positioning (Strategy) pairs well with a
+              LinkedIn-first distribution plan (Distribution) for the PM/Growth-leader audience —
+              the network is suggesting an integrated approach for the DataPulse AI launch.
+            </p>
+            <div class="coordination-actions">
+              <button class="btn btn-ghost btn-sm" type="button">Accept Coordinated Plan</button>
+              <button class="btn btn-ghost btn-sm" type="button">Modify Combination</button>
+              <button class="btn btn-ghost btn-sm" type="button">Request Coordination Details</button>
+              <button class="btn btn-ghost btn-sm" type="button">Split Decisions</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="step-actions">
+          <a class="btn btn-ghost" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA">← Back to Partnership Calibration</a>
+          <a class="btn btn-primary" href="https://claude.ai/artifact/Y7aqVh8nfyLiPf91PC1t7P">Start First Collaboration →</a>
+        </div>
+      </main>
+    </div>
+
+<script>
+/*
+  Multi-AI Network Setup — vanilla JS, mirrors the pattern from app.js and
+  dashboard.js: plain data + a render step, no framework.
+
+  Agent bios/specializations echo Partnership Calibration's roster
+  (js/data.js) so identity stays consistent across the journey; trust
+  scores match the "this week" values on the Partnership Dashboard's
+  Trust Evolution chart (91/89/93). Content AI is introduced here as the
+  network's fourth member — its role and contribution types are sourced
+  from NETWORK-ACTIVITY-FUNCTIONALITY.md's "CONTENT AI Contributions"
+  section, and its 76% trust score from SITE-ARCHITECTURE.md's AI Network
+  sidebar spec.
+*/
+
+const AGENTS = [
+  {
+    id: "maya",
+    name: "Maya",
+    role: "Strategy",
+    initials: "M",
+    trust: 91,
+    blurb: "Aligns positioning, messaging, and campaign direction with your strategic goals.",
+    specializations: [
+      "Positioning & messaging recommendations",
+      "Strategic alignment checks on drafts",
+      "Campaign roadmap sequencing",
+    ],
+  },
+  {
+    id: "devon",
+    name: "Devon",
+    role: "Research",
+    initials: "D",
+    trust: 89,
+    blurb: "Surfaces market research, citations, and competitive context to back every claim.",
+    specializations: [
+      "Market & competitive research",
+      "Fact-checking & source citation",
+      "Statistical claim verification",
+    ],
+  },
+  {
+    id: "priya",
+    name: "Priya",
+    role: "Distribution",
+    initials: "P",
+    trust: 93,
+    blurb: "Plans channel mix, timing, and distribution mechanics once content is ready.",
+    specializations: [
+      "Channel & format selection",
+      "Send / publish timing recommendations",
+      "Cross-channel repurposing suggestions",
+    ],
+  },
+  {
+    id: "content",
+    name: "Content AI",
+    role: "Writing & Editing",
+    initials: "C",
+    trust: 76,
+    blurb: "Refines drafts for clarity, tone consistency, and completeness as the network's writing partner.",
+    specializations: [
+      "Writing enhancement & clarity suggestions",
+      "Tone and brand-voice consistency checks",
+      "Content gap identification (missing CTAs, examples)",
+    ],
+  },
+];
+
+function trustClass(score) {
+  if (score >= 80) return "high";
+  if (score >= 60) return "medium";
+  return "low";
+}
+
+function renderAgentGrid() {
+  return AGENTS.map(
+    (agent) => `
+    <div class="agent-card">
+      <div class="agent-head">
+        <div class="agent-identity">
+          <div class="agent-avatar">${agent.initials}</div>
+          <div>
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-role">${agent.role}</div>
+          </div>
+        </div>
+        <span class="trust-pill ${trustClass(agent.trust)}">${agent.trust}% trust</span>
+      </div>
+      <p class="hint" style="margin-bottom: var(--space-4);">${agent.blurb}</p>
+      <div class="section-label">Specializations</div>
+      <div class="check-list specialization-list">
+        ${agent.specializations
+          .map(
+            (label) => `
+          <div class="check-item is-checked">
+            <span class="check-box"></span>
+            <span class="check-label">${label}</span>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+    </div>
+  `
+  ).join("");
+}
+
+document.getElementById("agent-grid").innerHTML = renderAgentGrid();
+
+</script>

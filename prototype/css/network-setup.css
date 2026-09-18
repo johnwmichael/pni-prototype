@@ -1,0 +1,72 @@
+/*
+  Multi-AI Network Setup — builds on theme.css tokens.
+  Reuses agent-card / check-list / trust-pill from theme.css so agent
+  identity stays visually consistent with Partnership Calibration; the
+  only new pieces here are the page shell and the cross-team coordination
+  preview card.
+*/
+
+.network-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .network-wrap { padding: var(--space-4); }
+}
+
+.network-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 780px) {
+  .network-grid { grid-template-columns: 1fr; }
+}
+
+.agent-card .specialization-list {
+  margin-top: var(--space-2);
+}
+
+.dash-section {
+  margin-top: var(--space-6);
+}
+
+.dash-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dash-section-head h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dash-section-head p {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.coordination-quote {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.6;
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.coordination-quote b {
+  color: var(--accent-strong);
+}
+
+.coordination-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}

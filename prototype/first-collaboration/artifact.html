@@ -1,0 +1,1328 @@
+<meta charset="utf-8">
+<title>First Collaboration</title>
+<style>
+/*
+  PNI — Nocturne Design System
+  ----------------------------
+  Design tokens shared across every screen. Port these variables directly
+  into your ai-partner-canvas Tailwind config / CSS-in-JS theme — nothing
+  here is prototype-specific.
+*/
+
+:root {
+  /* Color */
+  --bg: #161826;
+  --surface: #232532;
+  --surface-raised: #2b2e40;
+  --border: #34374a;
+  --border-soft: #2a2c3c;
+  --text: #e9e9ed;
+  --text-muted: #a6a7b8;
+  --text-faint: #6f7189;
+  --accent: #9184d9;
+  --accent-soft: rgba(145, 132, 217, 0.14);
+  --accent-strong: #b3a9e8;
+
+  /* Status (used sparingly, never as full floods) */
+  --status-high: #7fd8a8;
+  --status-medium: #e8c77f;
+  --status-low: #e6828a;
+
+  /* Type */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shape */
+  --radius: 8px;
+  --radius-sm: 6px;
+
+  /* Rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.btn-ghost {
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+
+/* ---------- Layout shell ---------- */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  gap: var(--space-6);
+}
+
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.topnav-brand .mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  position: relative;
+  flex: none;
+}
+
+.topnav-brand .mark::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-6);
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  main {
+    padding: var(--space-4);
+  }
+  .topnav {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ---------- Journey stepper ---------- */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.stepper-step .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+}
+
+.stepper-step.is-done .dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stepper-step.is-active {
+  color: var(--text);
+}
+
+.stepper-step.is-active .dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.stepper-sep {
+  width: 18px;
+  height: 1px;
+  background: var(--border);
+  flex: none;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: var(--space-1);
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+.page-header .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: var(--space-2);
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+/* ---------- Sub-stepper (inside Partnership Calibration) ---------- */
+
+.substeps {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.substep {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.substep .num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--text-faint);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.substep.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.substep.is-active .num {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.substep.is-done .num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+/* ---------- Choice groups (wizard questions, autonomy radios) ---------- */
+
+.choice-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.choice:hover {
+  border-color: var(--accent);
+}
+
+.choice.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.choice .radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+  margin-top: 2px;
+  position: relative;
+}
+
+.choice.is-selected .radio {
+  border-color: var(--accent);
+}
+
+.choice.is-selected .radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.choice-body .choice-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.choice-body .choice-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+
+/* ---------- Agent cards ---------- */
+
+.agent-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.agent-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.agent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.agent-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.agent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-strong);
+  flex: none;
+}
+
+.agent-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.agent-role {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.trust-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trust-pill.high { color: var(--status-high); border-color: var(--status-high); }
+.trust-pill.medium { color: var(--status-medium); border-color: var(--status-medium); }
+.trust-pill.low { color: var(--status-low); border-color: var(--status-low); }
+
+/* ---------- Responsibility checklist ---------- */
+
+.check-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+}
+
+.check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--text-faint);
+  margin-top: 2px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-item.is-checked .check-box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.check-item.is-checked .check-box::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.check-label {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ---------- Trust preview / dashboard bars ---------- */
+
+.trust-overview {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.trust-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.trust-row .label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.trust-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.trust-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.trust-row .value {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+/* ---------- Footer nav ---------- */
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
+
+/* ---------- Misc ---------- */
+
+.hint {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.stub-card {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-5);
+  text-align: left;
+  color: var(--text-muted);
+}
+
+/*
+  First Collaboration — builds on theme.css tokens.
+
+  Loosely modeled on an earlier Helix Workspace reference screen (a live
+  content-collaboration workspace: project context bar, a predictive
+  "ready to write" suggestion, a draft editor, and a network activity /
+  suggested-moves sidebar) — not a literal copy, adapted to the nocturne
+  dark theme and this build's own content, sourced from
+  NETWORK-ACTIVITY-FUNCTIONALITY.md (contribution types & user actions)
+  and PREDICTIVE-LOGIC-DESIGN.md (confidence tiers, "7 prior decisions"
+  context weighting, the Write/Design/Code/Analyze workflow strip).
+*/
+
+.workspace-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .workspace-wrap { padding: var(--space-4); }
+}
+
+/* ---------- Context bar ---------- */
+
+.context-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.context-chip {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.context-chip b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.context-chip.is-accent {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* ---------- Tab strip ---------- */
+
+.tab-strip {
+  display: flex;
+  gap: var(--space-5);
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: var(--space-5);
+}
+
+.tab {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Two-column workspace layout ---------- */
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .workspace-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Predictive "ready to write" card ---------- */
+
+.predictive-card {
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.predictive-card.is-applied {
+  border-color: var(--status-high);
+  background: rgba(127, 216, 168, 0.08);
+}
+
+.predictive-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.predictive-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  color: var(--accent-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex: none;
+}
+
+.predictive-card.is-applied .predictive-icon {
+  border-color: var(--status-high);
+  color: var(--status-high);
+}
+
+.predictive-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.predictive-card.is-applied .predictive-title {
+  color: var(--status-high);
+}
+
+.predictive-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.predictive-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.predictive-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.predictive-sources {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.source-chip {
+  font-size: 12px;
+  color: var(--accent-strong);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ---------- Editor ---------- */
+
+.editor-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.editor-toolbar .tool {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 12px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.editor-meta .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-high);
+  flex: none;
+}
+
+.editor-surface {
+  padding: var(--space-5);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  min-height: 220px;
+}
+
+.editor-surface p {
+  margin-bottom: var(--space-4);
+}
+
+.editor-surface p:last-child {
+  margin-bottom: 0;
+}
+
+.editor-surface .is-new {
+  color: var(--text);
+  border-left: 2px solid var(--status-high);
+  padding-left: var(--space-4);
+}
+
+/* ---------- Sidebar shared ---------- */
+
+.sidebar-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.sidebar-card + .sidebar-card {
+  margin-top: var(--space-4);
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.sidebar-head h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.live-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--status-high);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-high);
+}
+
+/* ---------- Network activity feed ---------- */
+
+.activity-feed {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.activity-row {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.activity-row .activity-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+}
+
+.activity-agent {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--accent-strong);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.activity-time {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-left: auto;
+}
+
+.activity-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.activity-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-3);
+}
+
+.activity-actions .btn {
+  padding: 5px 10px;
+  font-size: 11.5px;
+}
+
+/* ---------- Suggested next moves ---------- */
+
+.moves-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.move-row {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.move-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.move-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.move-confidence {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  white-space: nowrap;
+  flex: none;
+}
+
+.move-source {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: 3px;
+}
+
+.move-why-btn {
+  background: none;
+  border: none;
+  color: var(--accent-strong);
+  font-size: 11.5px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.move-rationale {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-soft);
+  display: none;
+}
+
+.move-row.is-open .move-rationale {
+  display: block;
+}
+
+/* ---------- Network intelligence note ---------- */
+
+.network-note {
+  font-size: 12px;
+  color: var(--text-faint);
+  line-height: 1.55;
+}
+
+.network-note b {
+  color: var(--text-muted);
+}
+
+</style>
+
+    <div id="workspace-app">
+      <header class="topnav">
+        <div class="topnav-brand">
+          <span class="mark"></span>
+          Partnership Network Intelligence
+        </div>
+        <nav class="stepper">
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM"><span class="dot"></span>Welcome</a>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA"><span class="dot"></span>Partnership Calibration</a>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step is-done" href="https://claude.ai/artifact/LwyjViyYPCWjh6J7v6yiBe"><span class="dot"></span>Multi-AI Network Setup</a>
+          <div class="stepper-sep"></div>
+          <span class="stepper-step is-active"><span class="dot"></span>First Collaboration</span>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo"><span class="dot"></span>Partnership Dashboard</a>
+        </nav>
+      </header>
+
+      <main class="workspace-wrap">
+        <div class="page-header" style="margin-bottom: var(--space-4);">
+          <div class="eyebrow">Step 4 of 5 · First Collaboration</div>
+          <h1>DataPulse AI — Product Launch Blog Post</h1>
+        </div>
+
+        <div class="context-bar">
+          <span class="context-chip"><b>You:</b> Marketing Manager</span>
+          <span class="context-chip"><b>Project:</b> DataPulse AI Launch</span>
+          <span class="context-chip"><b>Phase:</b> Week 6 / 12 · Pre-launch</span>
+          <span class="context-chip"><b>Audience:</b> PM / Growth leaders</span>
+          <span class="context-chip is-accent">✨ Context loaded from 7 prior decisions</span>
+        </div>
+
+        <div class="tab-strip">
+          <span class="tab is-active">Write</span>
+          <span class="tab">Design</span>
+          <span class="tab">Code</span>
+          <span class="tab">Analyze</span>
+        </div>
+
+        <div class="workspace-grid">
+          <div>
+            <div class="predictive-card" id="predictive-card"></div>
+
+            <div class="editor-card">
+              <div class="editor-toolbar">
+                <button class="tool" type="button" aria-hidden="true">H2</button>
+                <button class="tool" type="button" aria-hidden="true">B</button>
+                <button class="tool" type="button" aria-hidden="true">I</button>
+                <button class="tool" type="button" aria-hidden="true">"</button>
+                <button class="tool" type="button" aria-hidden="true">☰</button>
+                <button class="tool" type="button" aria-hidden="true">🔗</button>
+                <div class="editor-meta">
+                  <span class="dot"></span>Auto-saved
+                  <span id="word-count">0 words</span>
+                </div>
+              </div>
+              <div class="editor-surface" id="editor-surface"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sidebar-card">
+              <div class="sidebar-head">
+                <h3>Network activity</h3>
+                <span class="live-pill"><span class="dot"></span>Live</span>
+              </div>
+              <div class="activity-feed" id="activity-feed"></div>
+            </div>
+
+            <div class="sidebar-card">
+              <div class="sidebar-head">
+                <h3>Suggested next moves</h3>
+              </div>
+              <div class="moves-list" id="moves-list"></div>
+            </div>
+
+            <div class="sidebar-card">
+              <p class="network-note">
+                <b>Partnership Network Intelligence:</b> every suggestion above is sourced from a
+                specific Human + AI pairing elsewhere in the network. Confidence and reasoning are
+                always inspectable — nothing here is a black box.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <a class="btn btn-ghost" href="https://claude.ai/artifact/LwyjViyYPCWjh6J7v6yiBe">← Back to Multi-AI Network Setup</a>
+          <a class="btn btn-primary" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo">Continue to Partnership Dashboard →</a>
+        </div>
+      </main>
+    </div>
+
+<script>
+/*
+  First Collaboration — vanilla JS, same pattern as dashboard.js: plain
+  data + a small state object + a delegated click listener + re-render.
+
+  Content sourced from the project's own docs:
+  - NETWORK-ACTIVITY-FUNCTIONALITY.md → the four contribution types (Maya/
+    Devon/Priya/Content AI) and their example user actions
+  - PREDICTIVE-LOGIC-DESIGN.md → the "ready to write" prediction, the
+    confidence tiers behind the 86/92/74% suggested-move scores, and the
+    "7 prior decisions" context-weighting language
+*/
+
+const DRAFT_INTRO = [
+  "DataPulse AI turns scattered product analytics into a single, shared source of truth — the kind of dashboard your whole go-to-market team can act on without waiting for a data pull.",
+  "For PM and growth leaders drowning in tool sprawl, that means fewer meetings spent reconciling numbers and more time spent deciding what to do next.",
+];
+
+const APPLIED_PARAGRAPH =
+  "Where Amplitude asks teams to piece the story together across a dozen dashboards, DataPulse AI leads with the story itself — visual by default, because your own research shows PM and growth audiences prefer visual data over text by 3:1. That's not a dashboard-fatigue workaround; it's the product's starting point.";
+
+const ACTIVITY = [
+  {
+    agent: "MAYA · STRATEGY",
+    time: "Just now",
+    body: "Strategic insight: consider emphasizing ROI benefits for this PM audience — aligns with Q3 positioning.",
+    actions: ["Apply to Content", "Add to Brief"],
+  },
+  {
+    agent: "DEVON · RESEARCH",
+    time: "2m ago",
+    body: "Research finding: target audience prefers visual data over text, 3:1 — consider an infographic for the mid-section.",
+    actions: ["Add Citation", "Create Visual Brief"],
+  },
+  {
+    agent: "PRIYA · DISTRIBUTION",
+    time: "6m ago",
+    body: "Distribution insight: break into a 3-part series — 40% higher completion rate expected.",
+    actions: ["Create Series Plan", "Modify Current"],
+  },
+  {
+    agent: "CONTENT AI",
+    time: "11m ago",
+    body: "Quality enhancement: add a customer example to illustrate the ROI calculation.",
+    actions: ["Apply Suggestion", "Request Examples"],
+  },
+];
+
+const MOVES = [
+  {
+    title: "Suggest competitive differentiation vs. Amplitude",
+    source: "Research AI · via Devon",
+    confidence: 86,
+    rationale:
+      "High confidence: Devon's interview synthesis and this section's topic closely match prior competitive-differentiation sections that performed well in this project.",
+  },
+  {
+    title: "Pull ICP language from Maya's positioning doc",
+    source: "Strategy AI · via Maya",
+    confidence: 92,
+    rationale:
+      "High confidence: strong pattern match plus network consensus — Maya's positioning doc was approved for this exact audience and campaign phase.",
+  },
+  {
+    title: "Outline a LinkedIn cut-down for Priya",
+    source: "Distribution AI · via Priya",
+    confidence: 74,
+    rationale:
+      "Medium confidence: a partial pattern match. The network hasn't seen this content type paired with a LinkedIn cut-down before, so it's surfaced as a suggestion rather than auto-applied.",
+  },
+];
+
+const state = {
+  applied: false,
+  openMove: null,
+};
+
+function wordCount(el) {
+  return el.textContent.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function renderPredictive() {
+  const el = document.getElementById("predictive-card");
+  if (state.applied) {
+    el.classList.add("is-applied");
+    el.innerHTML = `
+      <div class="predictive-head">
+        <div class="predictive-icon">✓</div>
+        <div>
+          <div class="predictive-title">Applied to draft</div>
+          <div class="predictive-subtitle">The competitive-differentiation paragraph was added below.</div>
+        </div>
+      </div>
+      <div class="predictive-footer">
+        <div class="predictive-sources">
+          Sources:
+          <span class="source-chip">Devon + Research AI</span>
+          <span class="source-chip">Maya + Strategy AI</span>
+        </div>
+      </div>
+    `;
+    return;
+  }
+  el.classList.remove("is-applied");
+  el.innerHTML = `
+    <div class="predictive-head">
+      <div class="predictive-icon">✨</div>
+      <div>
+        <div class="predictive-title">Ready to write</div>
+        <div class="predictive-subtitle">AI has synthesized your next step</div>
+      </div>
+    </div>
+    <div class="predictive-body">
+      Write the competitive differentiation section. Anchor it to Devon's research finding
+      that your target audience prefers visual data over text, 3:1, and Maya's approved
+      ROI-focused positioning for the PM/Growth-leader audience.
+    </div>
+    <div class="predictive-footer">
+      <div class="predictive-sources">
+        Sources:
+        <span class="source-chip">Devon + Research AI</span>
+        <span class="source-chip">Maya + Strategy AI</span>
+      </div>
+      <button class="btn btn-primary" data-action="start-writing">Start Writing →</button>
+    </div>
+  `;
+}
+
+function renderEditor() {
+  const surface = document.getElementById("editor-surface");
+  const paras = [...DRAFT_INTRO];
+  let appliedHtml = "";
+  if (state.applied) {
+    appliedHtml = `<p class="is-new">${APPLIED_PARAGRAPH}</p>`;
+  }
+  surface.innerHTML = paras.map((p) => `<p>${p}</p>`).join("") + appliedHtml;
+  document.getElementById("word-count").textContent = `${wordCount(surface)} words`;
+}
+
+function renderActivity() {
+  document.getElementById("activity-feed").innerHTML = ACTIVITY.map(
+    (a) => `
+    <div class="activity-row">
+      <div class="activity-top">
+        <span class="activity-agent">${a.agent}</span>
+        <span class="activity-time">${a.time}</span>
+      </div>
+      <div class="activity-body">${a.body}</div>
+      <div class="activity-actions">
+        ${a.actions.map((label) => `<button class="btn btn-ghost" type="button">${label}</button>`).join("")}
+      </div>
+    </div>
+  `
+  ).join("");
+}
+
+function renderMoves() {
+  document.getElementById("moves-list").innerHTML = MOVES.map(
+    (m, i) => `
+    <div class="move-row ${state.openMove === i ? "is-open" : ""}">
+      <div class="move-top">
+        <div class="move-title">${m.title}</div>
+        <div class="move-confidence">${m.confidence}%</div>
+      </div>
+      <div class="move-source">${m.source}</div>
+      <button class="move-why-btn" data-action="toggle-why" data-index="${i}">
+        ${state.openMove === i ? "Hide reasoning" : "Why? →"}
+      </button>
+      <div class="move-rationale">${m.rationale}</div>
+    </div>
+  `
+  ).join("");
+}
+
+function render() {
+  renderPredictive();
+  renderEditor();
+  renderActivity();
+  renderMoves();
+}
+
+document.getElementById("workspace-app").addEventListener("click", (e) => {
+  const el = e.target.closest("[data-action]");
+  if (!el) return;
+  if (el.dataset.action === "start-writing") {
+    state.applied = true;
+    render();
+  }
+  if (el.dataset.action === "toggle-why") {
+    const i = Number(el.dataset.index);
+    state.openMove = state.openMove === i ? null : i;
+    render();
+  }
+});
+
+render();
+
+</script>

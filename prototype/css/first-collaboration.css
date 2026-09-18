@@ -1,0 +1,435 @@
+/*
+  First Collaboration — builds on theme.css tokens.
+
+  Loosely modeled on an earlier Helix Workspace reference screen (a live
+  content-collaboration workspace: project context bar, a predictive
+  "ready to write" suggestion, a draft editor, and a network activity /
+  suggested-moves sidebar) — not a literal copy, adapted to the nocturne
+  dark theme and this build's own content, sourced from
+  NETWORK-ACTIVITY-FUNCTIONALITY.md (contribution types & user actions)
+  and PREDICTIVE-LOGIC-DESIGN.md (confidence tiers, "7 prior decisions"
+  context weighting, the Write/Design/Code/Analyze workflow strip).
+*/
+
+.workspace-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .workspace-wrap { padding: var(--space-4); }
+}
+
+/* ---------- Context bar ---------- */
+
+.context-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.context-chip {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+.context-chip b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.context-chip.is-accent {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* ---------- Tab strip ---------- */
+
+.tab-strip {
+  display: flex;
+  gap: var(--space-5);
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: var(--space-5);
+}
+
+.tab {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- Two-column workspace layout ---------- */
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .workspace-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Predictive "ready to write" card ---------- */
+
+.predictive-card {
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.predictive-card.is-applied {
+  border-color: var(--status-high);
+  background: rgba(127, 216, 168, 0.08);
+}
+
+.predictive-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.predictive-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  color: var(--accent-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex: none;
+}
+
+.predictive-card.is-applied .predictive-icon {
+  border-color: var(--status-high);
+  color: var(--status-high);
+}
+
+.predictive-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.predictive-card.is-applied .predictive-title {
+  color: var(--status-high);
+}
+
+.predictive-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.predictive-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.predictive-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.predictive-sources {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.source-chip {
+  font-size: 12px;
+  color: var(--accent-strong);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 10px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ---------- Editor ---------- */
+
+.editor-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.editor-toolbar .tool {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor-meta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 12px;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.editor-meta .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-high);
+  flex: none;
+}
+
+.editor-surface {
+  padding: var(--space-5);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  min-height: 220px;
+}
+
+.editor-surface p {
+  margin-bottom: var(--space-4);
+}
+
+.editor-surface p:last-child {
+  margin-bottom: 0;
+}
+
+.editor-surface .is-new {
+  color: var(--text);
+  border-left: 2px solid var(--status-high);
+  padding-left: var(--space-4);
+}
+
+/* ---------- Sidebar shared ---------- */
+
+.sidebar-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.sidebar-card + .sidebar-card {
+  margin-top: var(--space-4);
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.sidebar-head h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.live-pill {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--status-high);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--status-high);
+}
+
+/* ---------- Network activity feed ---------- */
+
+.activity-feed {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.activity-row {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.activity-row .activity-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+}
+
+.activity-agent {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--accent-strong);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.activity-time {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-left: auto;
+}
+
+.activity-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.activity-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-3);
+}
+
+.activity-actions .btn {
+  padding: 5px 10px;
+  font-size: 11.5px;
+}
+
+/* ---------- Suggested next moves ---------- */
+
+.moves-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.move-row {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.move-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.move-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.move-confidence {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  white-space: nowrap;
+  flex: none;
+}
+
+.move-source {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: 3px;
+}
+
+.move-why-btn {
+  background: none;
+  border: none;
+  color: var(--accent-strong);
+  font-size: 11.5px;
+  cursor: pointer;
+  padding: 0;
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.move-rationale {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-soft);
+  display: none;
+}
+
+.move-row.is-open .move-rationale {
+  display: block;
+}
+
+/* ---------- Network intelligence note ---------- */
+
+.network-note {
+  font-size: 12px;
+  color: var(--text-faint);
+  line-height: 1.55;
+}
+
+.network-note b {
+  color: var(--text-muted);
+}
