@@ -1,0 +1,1225 @@
+<meta charset="utf-8">
+<title>Partnership Network Intelligence</title>
+<style>
+html { scroll-behavior: smooth; }
+/*
+  PNI — Nocturne Design System
+  ----------------------------
+  Design tokens shared across every screen. Port these variables directly
+  into your ai-partner-canvas Tailwind config / CSS-in-JS theme — nothing
+  here is prototype-specific.
+*/
+
+:root {
+  /* Color */
+  --bg: #161826;
+  --surface: #232532;
+  --surface-raised: #2b2e40;
+  --border: #34374a;
+  --border-soft: #2a2c3c;
+  --text: #e9e9ed;
+  --text-muted: #a6a7b8;
+  --text-faint: #6f7189;
+  --accent: #9184d9;
+  --accent-soft: rgba(145, 132, 217, 0.14);
+  --accent-strong: #b3a9e8;
+
+  /* Status (used sparingly, never as full floods) */
+  --status-high: #7fd8a8;
+  --status-medium: #e8c77f;
+  --status-low: #e6828a;
+
+  /* Type */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shape */
+  --radius: 8px;
+  --radius-sm: 6px;
+
+  /* Rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.btn-ghost {
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+/* ---------- Layout shell ---------- */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  gap: var(--space-6);
+}
+
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.topnav-brand .mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  position: relative;
+  flex: none;
+}
+
+.topnav-brand .mark::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-6);
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  main {
+    padding: var(--space-4);
+  }
+  .topnav {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ---------- Journey stepper ---------- */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.stepper-step .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+}
+
+.stepper-step.is-done .dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stepper-step.is-active {
+  color: var(--text);
+}
+
+.stepper-step.is-active .dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.stepper-sep {
+  width: 18px;
+  height: 1px;
+  background: var(--border);
+  flex: none;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: var(--space-1);
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+.page-header .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: var(--space-2);
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+/* ---------- Sub-stepper (inside Partnership Calibration) ---------- */
+
+.substeps {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.substep {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.substep .num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--text-faint);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.substep.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.substep.is-active .num {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.substep.is-done .num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+/* ---------- Choice groups (wizard questions, autonomy radios) ---------- */
+
+.choice-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.choice:hover {
+  border-color: var(--accent);
+}
+
+.choice.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.choice .radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+  margin-top: 2px;
+  position: relative;
+}
+
+.choice.is-selected .radio {
+  border-color: var(--accent);
+}
+
+.choice.is-selected .radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.choice-body .choice-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.choice-body .choice-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+
+/* ---------- Agent cards ---------- */
+
+.agent-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.agent-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.agent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.agent-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.agent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-strong);
+  flex: none;
+}
+
+.agent-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.agent-role {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.trust-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trust-pill.high { color: var(--status-high); border-color: var(--status-high); }
+.trust-pill.medium { color: var(--status-medium); border-color: var(--status-medium); }
+.trust-pill.low { color: var(--status-low); border-color: var(--status-low); }
+
+/* ---------- Responsibility checklist ---------- */
+
+.check-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+}
+
+.check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--text-faint);
+  margin-top: 2px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-item.is-checked .check-box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.check-item.is-checked .check-box::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.check-label {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ---------- Trust preview / dashboard bars ---------- */
+
+.trust-overview {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.trust-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.trust-row .label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.trust-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.trust-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.trust-row .value {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+/* ---------- Footer nav ---------- */
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
+
+/* ---------- Misc ---------- */
+
+.hint {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.stub-card {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-5);
+  text-align: left;
+  color: var(--text-muted);
+}
+
+/*
+  Landing page — builds on theme.css tokens. Marketing-specific layout
+  and components live here so theme.css stays reusable across every
+  screen (app + landing).
+*/
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.landing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.landing-nav-links a:not(.btn) {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.landing-nav-links a:not(.btn):hover {
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .landing-nav-links .nav-anchor {
+    display: none;
+  }
+  .landing-nav-links {
+    gap: var(--space-3);
+  }
+  .landing-nav {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+.landing-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.landing-section {
+  padding: var(--space-7) 0;
+}
+
+.landing-section.is-bordered {
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding: var(--space-7) 0 var(--space-6);
+  display: grid;
+  gap: var(--space-5);
+  max-width: 780px;
+}
+
+.hero .eyebrow {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.hero h1 .accent-line {
+  color: var(--accent-strong);
+}
+
+.hero p.lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 620px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 32px; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- Stat strip ---------- */
+
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 720px) {
+  .stat-strip { grid-template-columns: 1fr; }
+}
+
+.stat-tile {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.stat-tile .stat-number {
+  font-size: 32px;
+  font-weight: 650;
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-tile .stat-label {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.5;
+}
+
+/* ---------- Section headers ---------- */
+
+.section-heading {
+  max-width: 640px;
+  margin-bottom: var(--space-6);
+}
+
+.section-heading .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+  letter-spacing: -0.005em;
+}
+
+.section-heading p {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-top: var(--space-2);
+}
+
+/* ---------- Capability grid ---------- */
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 720px) {
+  .capability-grid { grid-template-columns: 1fr; }
+}
+
+.capability-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.capability-card .cap-index {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+
+.capability-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.capability-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.55;
+}
+
+/* ---------- Network preview (reuses .agent-card look, condensed) ---------- */
+
+.network-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 820px) {
+  .network-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Scale ladder ---------- */
+
+.scale-ladder {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.scale-step {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+@media (max-width: 640px) {
+  .scale-step { grid-template-columns: 1fr; gap: var(--space-2); }
+}
+
+.scale-step .scale-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+.scale-step .scale-example {
+  font-size: 13px;
+  color: var(--text-faint);
+  margin-top: var(--space-1);
+}
+
+.scale-step .scale-value {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.scale-connector {
+  width: 1px;
+  height: var(--space-3);
+  background: var(--border);
+  margin-left: 80px;
+}
+
+@media (max-width: 640px) {
+  .scale-connector { display: none; }
+}
+
+/* ---------- Final CTA ---------- */
+
+.final-cta {
+  text-align: left;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-6);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-raised) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.final-cta h2 {
+  font-size: 24px;
+  font-weight: 600;
+  max-width: 480px;
+}
+
+.final-cta p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: var(--space-2);
+  max-width: 480px;
+}
+
+/* ---------- Value prop badges ---------- */
+
+.value-props {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.value-prop {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.value-prop .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* ---------- Comparison (Individual vs Team AI Networks) ---------- */
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+@media (max-width: 720px) {
+  .compare-grid { grid-template-columns: 1fr; }
+}
+
+.compare-col {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.compare-col.is-pni {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.compare-col .compare-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.compare-col.is-pni .compare-label {
+  color: var(--accent-strong);
+}
+
+.compare-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.compare-list li {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  list-style: none;
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.compare-list li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--text-faint);
+}
+
+.compare-col.is-pni .compare-list li {
+  color: var(--text);
+}
+
+.compare-col.is-pni .compare-list li::before {
+  content: "✓";
+  color: var(--accent);
+}
+
+.quote-callout {
+  border-left: 2px solid var(--accent);
+  padding: var(--space-2) var(--space-5);
+  font-size: 15.5px;
+  color: var(--text);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ---------- How it works flow ---------- */
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+@media (max-width: 820px) {
+  .flow-steps {
+    grid-template-columns: 1fr;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}
+
+.flow-step {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+  text-align: left;
+}
+
+.flow-step .flow-index {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.flow-step h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.flow-step p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  line-height: 1.5;
+}
+
+.flow-arrow {
+  color: var(--text-faint);
+  font-size: 20px;
+  flex: none;
+}
+
+.landing-footer {
+  border-top: 1px solid var(--border-soft);
+  padding: var(--space-5) 0 var(--space-6);
+  color: var(--text-faint);
+  font-size: 12.5px;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+</style>
+<nav class="landing-nav">
+      <div class="topnav-brand">
+        <span class="mark"></span>
+        Partnership Network Intelligence
+      </div>
+      <div class="landing-nav-links">
+        <a class="nav-anchor" href="#gap">The Gap</a>
+        <a class="nav-anchor" href="#powers">Team Powers</a>
+        <a class="nav-anchor" href="#how-it-works">How It Works</a>
+        <a class="nav-anchor" href="#research">Research</a>
+        <a class="btn" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA">Start Partnership Calibration</a>
+      </div>
+    </nav>
+
+    <div class="landing-wrap">
+      <section class="hero">
+        <div class="eyebrow">Partnership Network Intelligence</div>
+        <h1>Transform teams through <span class="accent-line">human+AI collaboration networks</span></h1>
+        <p class="lede">
+          Go beyond individual AI productivity to unlock collective intelligence that's
+          impossible any other way — for the whole team, not just the person prompting.
+        </p>
+        <div class="value-props">
+          <span class="value-prop"><span class="dot"></span>Built on 100+ research papers</span>
+          <span class="value-prop"><span class="dot"></span>Research-validated framework</span>
+          <span class="value-prop"><span class="dot"></span>Designed for team collaborative intelligence</span>
+        </div>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA">Start Partnership Calibration</a>
+          <a class="btn btn-ghost" href="#research">Read the research →</a>
+        </div>
+      </section>
+
+      <section class="landing-section is-bordered" id="gap">
+        <div class="section-heading">
+          <div class="eyebrow">The problem</div>
+          <h2>The team intelligence gap</h2>
+          <p>
+            Most teams already use AI individually. Almost none have a network — which
+            means the compounding value of shared context and cross-agent insight never
+            gets created.
+          </p>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-col">
+            <div class="compare-label">Individual AI use</div>
+            <ul class="compare-list">
+              <li>Fragmented output — everyone's AI-assisted work looks different</li>
+              <li>No compound learning — each person's context resets every session</li>
+              <li>Constant context-switching between tools and threads</li>
+              <li>Productivity gain caps out at the individual</li>
+            </ul>
+          </div>
+          <div class="compare-col is-pni">
+            <div class="compare-label">Team AI network (PNI)</div>
+            <ul class="compare-list">
+              <li>Coherent output across people, because the network shares context</li>
+              <li>Compound learning — insights persist and improve across sessions</li>
+              <li>One calibrated network instead of N disconnected tools</li>
+              <li>Value compounds across the whole team, not just one user</li>
+            </ul>
+          </div>
+        </div>
+        <p class="quote-callout">
+          "When Sarah's AI research enhances John's strategy, and both inform Maria's
+          execution — that's when impossible value emerges."
+        </p>
+      </section>
+
+      <section class="landing-section is-bordered" id="powers">
+        <div class="section-heading">
+          <div class="eyebrow">What changes</div>
+          <h2>Three team transformation powers</h2>
+          <p>
+            Network-level collaboration doesn't just make individuals faster — it changes
+            what the team is capable of together.
+          </p>
+        </div>
+        <div class="capability-grid">
+          <div class="capability-card">
+            <div class="cap-index">01</div>
+            <h3>Exponential creative powers</h3>
+            <p>Multi-human + multi-AI insight combinations create solutions no one person — human or AI — would reach alone.</p>
+          </div>
+          <div class="capability-card">
+            <div class="cap-index">02</div>
+            <h3>Higher accountability &amp; honesty</h3>
+            <p>Transparent AI confidence plus collective oversight means fewer blind spots and no single point of unchecked judgment.</p>
+          </div>
+          <div class="capability-card">
+            <div class="cap-index">03</div>
+            <h3>Deeper human relationships</h3>
+            <p>Shared AI insight becomes shared team language — strengthening bonds instead of isolating everyone in their own tool.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section is-bordered" id="how-it-works">
+        <div class="section-heading">
+          <div class="eyebrow">The methodology</div>
+          <h2>How it works</h2>
+          <p>
+            A research-validated methodology, not a feature checklist — systematic
+            partnership setup that compounds instead of a one-time configuration.
+          </p>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-index">01</div>
+            <h3>Network Calibration</h3>
+            <p>Set trust, autonomy, and role scope for Maya (Strategy), Devon (Research), and Priya (Distribution).</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-index">02</div>
+            <h3>Collective Intelligence</h3>
+            <p>The calibrated network works across the team — context and confidence carry from person to person.</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-index">03</div>
+            <h3>Team Evolution</h3>
+            <p>Trust and autonomy adapt over time as the network proves reliable in your team's specific context.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section is-bordered" id="research">
+        <div class="section-heading">
+          <div class="eyebrow">Research foundation</div>
+          <h2>Built on academic research, not intuition</h2>
+          <p>
+            PNI is a practical implementation of the Collaborative AI framework, not a
+            marketing label. The validation roadmap below is where that foundation is
+            headed next.
+          </p>
+        </div>
+        <div class="stat-strip">
+          <div class="stat-tile">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">academic papers analyzed on dynamic human-AI collaboration to build this framework</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-number">2026</div>
+            <div class="stat-label">Karunanayake et al., "Toward Collaborative AI" — the framework this prototype implements</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-number">Next</div>
+            <div class="stat-label">university research partnerships &amp; pilot-client case studies — in progress, not yet published</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="landing-section is-bordered">
+        <div class="final-cta">
+          <div>
+            <h2>Calibrate your first partnership network</h2>
+            <p>Set trust, autonomy, and role scope for Maya, Devon, and Priya — takes about five minutes.</p>
+          </div>
+          <a class="btn btn-primary" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA">Start Partnership Calibration</a>
+        </div>
+      </section>
+
+      <footer class="landing-footer">
+        <span>Partnership Network Intelligence — systematic human+AI collaboration.</span>
+        <span>Built on 100+ academic papers, incl. Karunanayake et al. (2026)</span>
+      </footer>
+    </div>
