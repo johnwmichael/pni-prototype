@@ -323,6 +323,28 @@ function renderStub(title, description) {
   `;
 }
 
+function renderDashboardLink() {
+  return `
+    <div class="page-header">
+      <h1>Partnership Dashboard</h1>
+      <p>Trust evolution, network intelligence, collaboration quality, and the decision trail — built as its own page.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Ready to view</div>
+      <p class="hint" style="margin-top: var(--space-2);">
+        The dashboard is a separate, data-dense screen, so it lives on its own page
+        rather than inside this step-by-step flow.
+      </p>
+      <div class="step-actions">
+        <button class="btn btn-ghost" data-action="goto-journey" data-route="calibration">
+          ← Back to Partnership Calibration
+        </button>
+        <a class="btn btn-primary" href="../dashboard/index.html">Open Partnership Dashboard →</a>
+      </div>
+    </div>
+  `;
+}
+
 // ---------- Router ----------
 
 function render() {
@@ -347,10 +369,7 @@ function render() {
       );
       break;
     case "dashboard":
-      root.innerHTML = renderStub(
-        "Partnership Dashboard",
-        "Ongoing trust scores, reasoning transparency, and network intelligence across projects."
-      );
+      root.innerHTML = renderDashboardLink();
       break;
   }
 }

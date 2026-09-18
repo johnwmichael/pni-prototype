@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PNI — Partnership Dashboard</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+  </head>
+  <body>
+    <div id="dashboard-app">
+      <header class="topnav">
+        <div class="topnav-brand">
+          <span class="mark"></span>
+          Partnership Network Intelligence
+        </div>
+        <nav class="stepper">
+          <a class="stepper-step" href="../landing/index.html"><span class="dot"></span>Welcome</a>
+          <div class="stepper-sep"></div>
+          <a class="stepper-step" href="../index.html"><span class="dot"></span>Partnership Calibration</a>
+          <div class="stepper-sep"></div>
+          <span class="stepper-step"><span class="dot"></span>Multi-AI Network Setup</span>
+          <div class="stepper-sep"></div>
+          <span class="stepper-step"><span class="dot"></span>First Collaboration</span>
+          <div class="stepper-sep"></div>
+          <span class="stepper-step is-active"><span class="dot"></span>Partnership Dashboard</span>
+        </nav>
+      </header>
+
+      <main class="dashboard-wrap">
+        <div class="dash-header">
+          <div class="dash-hero">
+            <div class="eyebrow">Partnership Dashboard</div>
+            <div class="hero-figure">
+              <span class="hero-number">91%</span>
+              <span class="hero-delta">↗ +3% this month</span>
+            </div>
+            <div class="hero-label">Overall partnership health — Maya, Devon &amp; Priya</div>
+          </div>
+          <div class="kpi-row" id="kpi-row"></div>
+        </div>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Trust evolution</h2>
+              <p>How partnerships improve over time — click a name to isolate it.</p>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-legend" id="chart-legend"></div>
+            <div class="chart-svg-wrap" id="chart-svg-wrap"></div>
+            <div class="chart-hint">Hover a point for the exact week and score.</div>
+          </div>
+        </section>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Network intelligence</h2>
+              <p>Cross-team insights &amp; compound effects — what one partner learns, the network keeps.</p>
+            </div>
+          </div>
+          <div class="insight-feed" id="insight-feed"></div>
+        </section>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Collaboration quality</h2>
+              <p>Partnership health metrics across the network.</p>
+            </div>
+          </div>
+          <div class="quality-grid" id="quality-grid"></div>
+        </section>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Decision trail</h2>
+              <p>Recent network activity, for review and audit.</p>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="trail-list" id="trail-list"></div>
+            <div class="review-actions" id="review-actions"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>

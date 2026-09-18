@@ -1,0 +1,362 @@
+/*
+  Partnership Dashboard — builds on theme.css tokens.
+
+  Chart color roles (per the dataviz skill's method): the three agent
+  series are a CATEGORICAL identity channel, validated with
+  scripts/validate_palette.js against this app's own dark card surface
+  (#232532) — worst all-pairs CVD ΔE 9.4, normal-vision ΔE 20.9, all
+  >= 3:1 contrast. These hues are scoped to the Trust Evolution chart
+  only; everywhere else in the app, agent identity comes from initials/
+  labels, not color. Status colors (--status-high/medium/low in
+  theme.css) stay reserved for confidence-level meaning and are never
+  reused here as series identity, per the collision rule.
+*/
+
+:root {
+  --series-maya: #3987e5;
+  --series-devon: #d95926;
+  --series-priya: #199e70;
+}
+
+.dashboard-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .dashboard-wrap { padding: var(--space-4); }
+}
+
+/* ---------- Header / hero ---------- */
+
+.dash-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.dash-hero .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dash-hero .hero-figure {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.dash-hero .hero-number {
+  font-size: 52px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.dash-hero .hero-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.dash-hero .hero-delta {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--status-high);
+  color: var(--status-high);
+}
+
+.dash-hero .hero-delta.is-down {
+  border-color: var(--status-low);
+  color: var(--status-low);
+}
+
+/* ---------- KPI row ---------- */
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 720px) {
+  .kpi-row { grid-template-columns: 1fr; }
+}
+
+.kpi-tile {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  background: var(--surface);
+  min-width: 160px;
+}
+
+.kpi-tile .kpi-value {
+  font-size: 22px;
+  font-weight: 650;
+  color: var(--accent-strong);
+}
+
+.kpi-tile .kpi-label {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ---------- Dashboard section shell ---------- */
+
+.dash-section {
+  margin-top: var(--space-6);
+}
+
+.dash-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dash-section-head h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dash-section-head p {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+/* ---------- Trust evolution chart ---------- */
+
+.chart-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background 120ms ease, opacity 120ms ease;
+}
+
+.legend-item:hover {
+  background: var(--surface-raised);
+}
+
+.legend-item .swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: none;
+}
+
+.legend-item.is-off {
+  opacity: 0.4;
+}
+
+.legend-item .legend-value {
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-svg-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chart-svg-wrap svg {
+  width: 100%;
+  height: auto;
+  min-width: 480px;
+  display: block;
+}
+
+.chart-axis-label {
+  fill: var(--text-faint);
+  font-size: 10.5px;
+  font-family: var(--font);
+}
+
+.chart-gridline {
+  stroke: var(--border-soft);
+  stroke-width: 1;
+}
+
+.chart-series-label {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font);
+}
+
+.chart-hint {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: var(--space-3);
+}
+
+/* ---------- Network intelligence feed ---------- */
+
+.insight-feed {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.insight-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+}
+
+.insight-row .insight-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent-strong);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-weight: 600;
+}
+
+.insight-row .insight-body {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.insight-row .insight-meta {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* ---------- Collaboration quality metrics ---------- */
+
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 820px) {
+  .quality-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .quality-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Decision trail ---------- */
+
+.trail-list {
+  display: grid;
+}
+
+.trail-row {
+  display: grid;
+  grid-template-columns: 90px 32px 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.trail-row:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 640px) {
+  .trail-row {
+    grid-template-columns: 26px 1fr auto;
+  }
+  .trail-time { display: none; }
+}
+
+.trail-time {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.trail-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+.trail-body {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.trail-body .trail-conf {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+.trail-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trail-status.high { color: var(--status-high); border-color: var(--status-high); }
+.trail-status.medium { color: var(--status-medium); border-color: var(--status-medium); }
+.trail-status.low { color: var(--status-low); border-color: var(--status-low); }
+
+/* ---------- Review actions ---------- */
+
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
