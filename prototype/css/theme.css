@@ -1,0 +1,589 @@
+/*
+  PNI — Nocturne Design System
+  ----------------------------
+  Design tokens shared across every screen. Port these variables directly
+  into your ai-partner-canvas Tailwind config / CSS-in-JS theme — nothing
+  here is prototype-specific.
+*/
+
+:root {
+  /* Color */
+  --bg: #161826;
+  --surface: #232532;
+  --surface-raised: #2b2e40;
+  --border: #34374a;
+  --border-soft: #2a2c3c;
+  --text: #e9e9ed;
+  --text-muted: #a6a7b8;
+  --text-faint: #6f7189;
+  --accent: #9184d9;
+  --accent-soft: rgba(145, 132, 217, 0.14);
+  --accent-strong: #b3a9e8;
+
+  /* Status (used sparingly, never as full floods) */
+  --status-high: #7fd8a8;
+  --status-medium: #e8c77f;
+  --status-low: #e6828a;
+
+  /* Type */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shape */
+  --radius: 8px;
+  --radius-sm: 6px;
+
+  /* Rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.btn-ghost {
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+/* ---------- Layout shell ---------- */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  gap: var(--space-6);
+}
+
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.topnav-brand .mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  position: relative;
+  flex: none;
+}
+
+.topnav-brand .mark::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-6);
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  main {
+    padding: var(--space-4);
+  }
+  .topnav {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ---------- Journey stepper ---------- */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.stepper-step .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+}
+
+.stepper-step.is-done .dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stepper-step.is-active {
+  color: var(--text);
+}
+
+.stepper-step.is-active .dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.stepper-sep {
+  width: 18px;
+  height: 1px;
+  background: var(--border);
+  flex: none;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: var(--space-1);
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+.page-header .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: var(--space-2);
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+/* ---------- Sub-stepper (inside Partnership Calibration) ---------- */
+
+.substeps {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.substep {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.substep .num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--text-faint);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.substep.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.substep.is-active .num {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.substep.is-done .num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+/* ---------- Choice groups (wizard questions, autonomy radios) ---------- */
+
+.choice-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.choice:hover {
+  border-color: var(--accent);
+}
+
+.choice.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.choice .radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+  margin-top: 2px;
+  position: relative;
+}
+
+.choice.is-selected .radio {
+  border-color: var(--accent);
+}
+
+.choice.is-selected .radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.choice-body .choice-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.choice-body .choice-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+
+/* ---------- Agent cards ---------- */
+
+.agent-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.agent-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.agent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.agent-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.agent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-strong);
+  flex: none;
+}
+
+.agent-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.agent-role {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.trust-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trust-pill.high { color: var(--status-high); border-color: var(--status-high); }
+.trust-pill.medium { color: var(--status-medium); border-color: var(--status-medium); }
+.trust-pill.low { color: var(--status-low); border-color: var(--status-low); }
+
+/* ---------- Responsibility checklist ---------- */
+
+.check-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+}
+
+.check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--text-faint);
+  margin-top: 2px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-item.is-checked .check-box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.check-item.is-checked .check-box::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.check-label {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ---------- Trust preview / dashboard bars ---------- */
+
+.trust-overview {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.trust-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.trust-row .label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.trust-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.trust-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.trust-row .value {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+/* ---------- Footer nav ---------- */
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
+
+/* ---------- Misc ---------- */
+
+.hint {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.stub-card {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-5);
+  text-align: left;
+  color: var(--text-muted);
+}

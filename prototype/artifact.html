@@ -1,0 +1,1178 @@
+<meta charset="utf-8">
+<title>Partnership Calibration</title>
+<style>
+/*
+  PNI — Nocturne Design System
+  ----------------------------
+  Design tokens shared across every screen. Port these variables directly
+  into your ai-partner-canvas Tailwind config / CSS-in-JS theme — nothing
+  here is prototype-specific.
+*/
+
+:root {
+  /* Color */
+  --bg: #161826;
+  --surface: #232532;
+  --surface-raised: #2b2e40;
+  --border: #34374a;
+  --border-soft: #2a2c3c;
+  --text: #e9e9ed;
+  --text-muted: #a6a7b8;
+  --text-faint: #6f7189;
+  --accent: #9184d9;
+  --accent-soft: rgba(145, 132, 217, 0.14);
+  --accent-strong: #b3a9e8;
+
+  /* Status (used sparingly, never as full floods) */
+  --status-high: #7fd8a8;
+  --status-medium: #e8c77f;
+  --status-low: #e6828a;
+
+  /* Type */
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shape */
+  --radius: 8px;
+  --radius-sm: 6px;
+
+  /* Rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button {
+  font-family: var(--font);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  border-color: var(--accent);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.btn-ghost {
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  border-color: var(--border);
+  background: transparent;
+}
+
+/* ---------- Layout shell ---------- */
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+  gap: var(--space-6);
+}
+
+.topnav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.topnav-brand .mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  position: relative;
+  flex: none;
+}
+
+.topnav-brand .mark::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+main {
+  flex: 1;
+  padding: var(--space-6);
+  max-width: 1040px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  main {
+    padding: var(--space-4);
+  }
+  .topnav {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ---------- Journey stepper ---------- */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.stepper-step .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+}
+
+.stepper-step.is-done .dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stepper-step.is-active {
+  color: var(--text);
+}
+
+.stepper-step.is-active .dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.stepper-sep {
+  width: 18px;
+  height: 1px;
+  background: var(--border);
+  flex: none;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+.card + .card {
+  margin-top: var(--space-4);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: var(--space-1);
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+.page-header .eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-top: var(--space-2);
+}
+
+.page-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: var(--space-2);
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+/* ---------- Sub-stepper (inside Partnership Calibration) ---------- */
+
+.substeps {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.substep {
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid transparent;
+  color: var(--text-faint);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.substep .num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--text-faint);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.substep.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.substep.is-active .num {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.substep.is-done .num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+/* ---------- Choice groups (wizard questions, autonomy radios) ---------- */
+
+.choice-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.choice:hover {
+  border-color: var(--accent);
+}
+
+.choice.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.choice .radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-faint);
+  flex: none;
+  margin-top: 2px;
+  position: relative;
+}
+
+.choice.is-selected .radio {
+  border-color: var(--accent);
+}
+
+.choice.is-selected .radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.choice-body .choice-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.choice-body .choice-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  line-height: 1.45;
+}
+
+/* ---------- Agent cards ---------- */
+
+.agent-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.agent-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  background: var(--surface);
+}
+
+.agent-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.agent-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.agent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-strong);
+  flex: none;
+}
+
+.agent-name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.agent-role {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.trust-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.trust-pill.high { color: var(--status-high); border-color: var(--status-high); }
+.trust-pill.medium { color: var(--status-medium); border-color: var(--status-medium); }
+.trust-pill.low { color: var(--status-low); border-color: var(--status-low); }
+
+/* ---------- Responsibility checklist ---------- */
+
+.check-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  cursor: pointer;
+}
+
+.check-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--text-faint);
+  margin-top: 2px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-item.is-checked .check-box {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.check-item.is-checked .check-box::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--bg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.check-label {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ---------- Trust preview / dashboard bars ---------- */
+
+.trust-overview {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.trust-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 48px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.trust-row .label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.trust-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  overflow: hidden;
+}
+
+.trust-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.trust-row .value {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--text-muted);
+}
+
+/* ---------- Footer nav ---------- */
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-6);
+}
+
+/* ---------- Misc ---------- */
+
+.hint {
+  font-size: 12.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.stub-card {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-5);
+  text-align: left;
+  color: var(--text-muted);
+}
+
+</style>
+<div id="app">
+  <header class="topnav">
+    <div class="topnav-brand">
+      <span class="mark"></span>
+      Partnership Network Intelligence
+    </div>
+    <nav class="stepper" id="stepper"></nav>
+  </header>
+  <main id="view"></main>
+</div>
+
+<script>
+/*
+  Content & reference data for the Partnership Calibration screen.
+
+  Sourced from the project's own docs (not invented for the prototype):
+  - TRUST-MECHANISM-IMPLEMENTATION.md → wizard questions, autonomy levels,
+    per-agent auto-apply thresholds
+  - SITE-ARCHITECTURE.md → agent roster, trust pill / dashboard format
+  - PRD-v2.md → the four Collaborative AI capabilities this screen maps to
+
+  Kept as plain data on purpose: when this ports into ai-partner-canvas,
+  this file becomes the seed for a React context / store, and the render
+  functions in app.js become components that read it via props.
+*/
+
+const AGENTS = [
+  {
+    id: "maya",
+    name: "Maya",
+    role: "Strategy",
+    initials: "M",
+    blurb:
+      "Aligns positioning, messaging, and campaign direction with your strategic goals.",
+    responsibilities: [
+      { id: "positioning", label: "Positioning & messaging recommendations", checked: true },
+      { id: "strategic-review", label: "Strategic alignment checks on drafts", checked: true },
+      { id: "brand-voice", label: "Brand voice calibration", checked: false },
+      { id: "roadmap", label: "Campaign roadmap sequencing", checked: true },
+    ],
+  },
+  {
+    id: "devon",
+    name: "Devon",
+    role: "Research",
+    initials: "D",
+    blurb:
+      "Surfaces market research, citations, and competitive context to back every claim.",
+    responsibilities: [
+      { id: "market-research", label: "Market & competitive research", checked: true },
+      { id: "fact-check", label: "Fact-checking & source citation", checked: true },
+      { id: "stat-verify", label: "Statistical claim verification", checked: true },
+      { id: "trend-watch", label: "Ongoing trend monitoring", checked: false },
+    ],
+  },
+  {
+    id: "priya",
+    name: "Priya",
+    role: "Distribution",
+    initials: "P",
+    blurb:
+      "Plans channel mix, timing, and distribution mechanics once content is ready.",
+    responsibilities: [
+      { id: "channel-plan", label: "Channel & format selection", checked: true },
+      { id: "timing", label: "Send / publish timing recommendations", checked: true },
+      { id: "performance", label: "Post-publish performance analysis", checked: false },
+      { id: "repurpose", label: "Cross-channel repurposing suggestions", checked: true },
+    ],
+  },
+];
+
+// Four autonomy levels, identical shape for every agent per
+// TRUST-MECHANISM-IMPLEMENTATION.md "Individual AI Agent Trust Levels".
+// `threshold` text is agent-specific (their example thresholds), the rest
+// of the copy is level-generic.
+const AUTONOMY_LEVELS = [
+  {
+    id: "high",
+    label: "High Autonomy",
+    trustScore: 90,
+    describe: (agent) =>
+      `Auto-apply ${agent.role.toLowerCase()} suggestions above ${agent.autoApplyThreshold}% confidence.`,
+  },
+  {
+    id: "medium",
+    label: "Medium Autonomy",
+    trustScore: 74,
+    describe: (agent) =>
+      `Show suggestions, require your approval above ${agent.approvalThreshold}% confidence.`,
+  },
+  {
+    id: "low",
+    label: "Low Autonomy",
+    trustScore: 55,
+    describe: () => "Always ask permission before acting on a suggestion.",
+  },
+  {
+    id: "advisory",
+    label: "Advisory Only",
+    trustScore: 35,
+    describe: (agent) =>
+      `${agent.name} provides input but never issues direct recommendations.`,
+  },
+];
+
+// Per-agent threshold copy referenced by AUTONOMY_LEVELS.describe(agent)
+const AGENT_THRESHOLDS = {
+  maya: { autoApplyThreshold: 80, approvalThreshold: 60 },
+  devon: { autoApplyThreshold: 85, approvalThreshold: 70 },
+  priya: { autoApplyThreshold: 82, approvalThreshold: 65 },
+};
+
+// Default starting autonomy per agent, matching the example in the docs.
+const DEFAULT_AUTONOMY = {
+  maya: "high",
+  devon: "medium",
+  priya: "high",
+};
+
+// Trust Calibration Wizard — verbatim structure from
+// TRUST-MECHANISM-IMPLEMENTATION.md "Trust Calibration Wizard".
+const WIZARD_QUESTIONS = [
+  {
+    id: "comfort",
+    prompt: "How comfortable are you with AI writing suggestions?",
+    capability: "Adaptive Human Collaboration",
+    options: [
+      { id: "very", label: "Very comfortable", desc: "Let the network move quickly and apply suggestions freely." },
+      { id: "somewhat", label: "Somewhat comfortable", desc: "Suggest freely, but keep me in the loop on anything notable." },
+      { id: "cautious", label: "Cautious", desc: "Show me suggestions before anything gets applied." },
+      { id: "manual", label: "Prefer manual", desc: "I'll ask when I want AI input; don't surface it proactively." },
+    ],
+  },
+  {
+    id: "oversight",
+    prompt: "What level of oversight do you prefer for strategic decisions?",
+    capability: "Contextual Mode-Switching",
+    options: [
+      { id: "decide", label: "AI can decide", desc: "Execute mode: act on strategic calls within agreed guardrails." },
+      { id: "options", label: "Show options", desc: "Explore mode: present a short list of strategic options to choose from." },
+      { id: "ask", label: "Always ask", desc: "Escalate mode: nothing strategic moves without your explicit go-ahead." },
+      { id: "advisory", label: "Advisory only", desc: "Strategic input is available on request, never pushed." },
+    ],
+  },
+  {
+    id: "explanation",
+    prompt: "How important is detailed explanation for AI reasoning?",
+    capability: "Metacognition",
+    options: [
+      { id: "essential", label: "Essential", desc: "Always show full reasoning, sources, and confidence breakdown." },
+      { id: "helpful", label: "Helpful", desc: "Show a short rationale by default, full breakdown on request." },
+      { id: "occasional", label: "Occasional", desc: "Only explain when confidence is low or a suggestion is unusual." },
+      { id: "minimal", label: "Minimal", desc: "Keep the interface quiet; I'll ask 'why?' when I want it." },
+    ],
+  },
+  {
+    id: "mistakeHandling",
+    prompt: "What happens when AI makes a mistake?",
+    capability: "Uncertainty-Aware Action",
+    options: [
+      { id: "learn", label: "Learn from it", desc: "Log it, adjust future confidence scoring, keep moving." },
+      { id: "reduce", label: "Reduce AI autonomy", desc: "Automatically lower autonomy for that agent in similar contexts." },
+      { id: "review", label: "Manual review", desc: "Flag it for me to review before anything similar happens again." },
+      { id: "disable", label: "Disable AI", desc: "Pause that agent entirely until I re-enable it." },
+    ],
+  },
+];
+
+const JOURNEY_STEPS = [
+  { id: "welcome", label: "Welcome" },
+  { id: "calibration", label: "Partnership Calibration" },
+  { id: "network", label: "Multi-AI Network Setup" },
+  { id: "collaboration", label: "First Collaboration" },
+  { id: "dashboard", label: "Partnership Dashboard" },
+];
+
+const CALIBRATION_SUBSTEPS = [
+  { id: "wizard", label: "Trust Calibration" },
+  { id: "agents", label: "AI Autonomy Levels" },
+  { id: "roles", label: "Role Definitions & Review" },
+];
+
+
+/*
+  Partnership Calibration prototype — vanilla JS, zero build step.
+
+  Why vanilla JS: this sandbox's egress policy blocks the npm registry and
+  every CDN, so a React/Vite/TanStack build couldn't be installed or
+  verified here. The app below mirrors what a React version would look
+  like function-for-function — each `render*` function is a component,
+  `state` is what would be context/store state, and `dispatch` is what
+  would be a reducer. Porting notes are in README.md at the project root.
+
+  State lives only in memory (module scope), by design — no
+  localStorage/sessionStorage, per prototype conventions.
+*/
+
+const state = {
+  route: "calibration", // 'welcome' | 'calibration' | 'network' | 'collaboration' | 'dashboard'
+  calibrationStep: 0, // 0: wizard, 1: agents, 2: roles & review
+  wizardAnswers: {}, // { [questionId]: optionId }
+  autonomy: { ...DEFAULT_AUTONOMY }, // { [agentId]: levelId }
+  responsibilities: Object.fromEntries(
+    AGENTS.map((a) => [a.id, Object.fromEntries(a.responsibilities.map((r) => [r.id, r.checked]))])
+  ),
+};
+
+const root = document.getElementById("view");
+const topnavStepper = document.getElementById("stepper");
+
+function levelById(id) {
+  return AUTONOMY_LEVELS.find((l) => l.id === id);
+}
+
+function agentWithThresholds(agent) {
+  return { ...agent, ...AGENT_THRESHOLDS[agent.id] };
+}
+
+function trustClass(score) {
+  if (score >= 80) return "high";
+  if (score >= 60) return "medium";
+  return "low";
+}
+
+// ---------- Top-level journey stepper (always visible) ----------
+
+function renderStepper() {
+  const activeIndex = JOURNEY_STEPS.findIndex((s) => s.id === state.route);
+  topnavStepper.innerHTML = JOURNEY_STEPS.map((step, i) => {
+    const isActive = i === activeIndex;
+    const isDone = i < activeIndex;
+    return `
+      ${i > 0 ? `<div class="stepper-sep"></div>` : ""}
+      <button
+        class="stepper-step ${isActive ? "is-active" : ""} ${isDone ? "is-done" : ""}"
+        data-action="goto-journey" data-route="${step.id}"
+      >
+        <span class="dot"></span>${step.label}
+      </button>
+    `;
+  }).join("");
+}
+
+// ---------- Route: Welcome ----------
+
+function renderWelcome() {
+  return `
+    <div class="page-header">
+      <div class="eyebrow">Partnership Network Intelligence</div>
+      <h1>Welcome to your AI partnership</h1>
+      <p>
+        PNI moves beyond individual AI productivity into team-level collaborative
+        intelligence. Before your network goes to work, you'll calibrate how much
+        autonomy each partner gets and how they should communicate uncertainty.
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-title">What happens next</div>
+      <div class="card-subtitle" style="margin-top: var(--space-3); line-height: 1.6;">
+        1. Partnership Calibration — set trust, autonomy, and roles for Maya, Devon, and Priya.<br/>
+        2. Multi-AI Network Setup — confirm how the three agents coordinate with each other.<br/>
+        3. First Collaboration — run a live task through the calibrated network.<br/>
+        4. Partnership Dashboard — track trust, confidence, and outcomes over time.
+      </div>
+      <div class="step-actions">
+        <span></span>
+        <button class="btn btn-primary" data-action="goto-journey" data-route="calibration">
+          Begin Partnership Calibration
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ---------- Route: Partnership Calibration ----------
+
+function renderCalibrationSubsteps() {
+  return `
+    <div class="substeps">
+      ${CALIBRATION_SUBSTEPS.map((s, i) => {
+        const cls =
+          i === state.calibrationStep ? "is-active" : i < state.calibrationStep ? "is-done" : "";
+        return `
+          <div class="substep ${cls}">
+            <span class="num">${i + 1}</span>${s.label}
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function renderWizardStep() {
+  return WIZARD_QUESTIONS.map((q) => {
+    const selected = state.wizardAnswers[q.id];
+    return `
+      <div class="card">
+        <div class="section-label">${q.capability}</div>
+        <div class="card-title" style="margin-bottom: var(--space-4);">${q.prompt}</div>
+        <div class="choice-group">
+          ${q.options
+            .map(
+              (opt) => `
+            <button
+              class="choice ${selected === opt.id ? "is-selected" : ""}"
+              data-action="select-wizard" data-question="${q.id}" data-option="${opt.id}"
+            >
+              <span class="radio"></span>
+              <span class="choice-body">
+                <div class="choice-label">${opt.label}</div>
+                <div class="choice-desc">${opt.desc}</div>
+              </span>
+            </button>
+          `
+            )
+            .join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderAgentsStep() {
+  return `
+    <div class="hint" style="margin-bottom: var(--space-5);">
+      Each partner's autonomy can be recalibrated any time from the Trust Dashboard —
+      this just sets where they start.
+    </div>
+    <div class="agent-grid">
+      ${AGENTS.map((agent) => {
+        const full = agentWithThresholds(agent);
+        const currentLevelId = state.autonomy[agent.id];
+        const currentLevel = levelById(currentLevelId);
+        return `
+          <div class="agent-card">
+            <div class="agent-head">
+              <div class="agent-identity">
+                <div class="agent-avatar">${agent.initials}</div>
+                <div>
+                  <div class="agent-name">${agent.name}</div>
+                  <div class="agent-role">${agent.role}</div>
+                </div>
+              </div>
+              <span class="trust-pill ${trustClass(currentLevel.trustScore)}">
+                ${currentLevel.trustScore}% trust
+              </span>
+            </div>
+            <p class="hint" style="margin-bottom: var(--space-4);">${agent.blurb}</p>
+            <div class="choice-group">
+              ${AUTONOMY_LEVELS.map(
+                (level) => `
+                <button
+                  class="choice ${currentLevelId === level.id ? "is-selected" : ""}"
+                  data-action="select-autonomy" data-agent="${agent.id}" data-level="${level.id}"
+                >
+                  <span class="radio"></span>
+                  <span class="choice-body">
+                    <div class="choice-label">${level.label}</div>
+                    <div class="choice-desc">${level.describe(full)}</div>
+                  </span>
+                </button>
+              `
+              ).join("")}
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function renderRolesStep() {
+  const overviewRows = AGENTS.map((agent) => {
+    const level = levelById(state.autonomy[agent.id]);
+    return { agent, score: level.trustScore };
+  });
+  const overallHealth = Math.round(
+    overviewRows.reduce((sum, r) => sum + r.score, 0) / overviewRows.length
+  );
+
+  return `
+    <div class="agent-grid">
+      ${AGENTS.map(
+        (agent) => `
+        <div class="agent-card">
+          <div class="agent-head">
+            <div class="agent-identity">
+              <div class="agent-avatar">${agent.initials}</div>
+              <div>
+                <div class="agent-name">${agent.name}</div>
+                <div class="agent-role">${agent.role}</div>
+              </div>
+            </div>
+          </div>
+          <div class="section-label">Responsibilities in scope</div>
+          <div class="check-list">
+            ${agent.responsibilities
+              .map((resp) => {
+                const checked = state.responsibilities[agent.id][resp.id];
+                return `
+                <div
+                  class="check-item ${checked ? "is-checked" : ""}"
+                  data-action="toggle-responsibility" data-agent="${agent.id}" data-resp="${resp.id}"
+                >
+                  <span class="check-box"></span>
+                  <span class="check-label">${resp.label}</span>
+                </div>
+              `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `
+      ).join("")}
+    </div>
+
+    <div class="card">
+      <div class="card-title">Partnership Trust Overview</div>
+      <div class="card-subtitle">Live preview — recalculates as you calibrate above.</div>
+      <div class="trust-overview" style="margin-top: var(--space-5);">
+        <div class="trust-row">
+          <span class="label">Overall health</span>
+          <div class="trust-track"><div class="trust-fill" style="width:${overallHealth}%"></div></div>
+          <span class="value">${overallHealth}%</span>
+        </div>
+        ${overviewRows
+          .map(
+            (r) => `
+          <div class="trust-row">
+            <span class="label">${r.agent.name} · ${r.agent.role}</span>
+            <div class="trust-track"><div class="trust-fill" style="width:${r.score}%"></div></div>
+            <span class="value">${r.score}%</span>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderCalibration() {
+  const stepRenderers = [renderWizardStep, renderAgentsStep, renderRolesStep];
+  const isLast = state.calibrationStep === CALIBRATION_SUBSTEPS.length - 1;
+  const isFirst = state.calibrationStep === 0;
+
+  return `
+    <div class="page-header">
+      <div class="eyebrow">Step 2 of 5 · Partnership Calibration</div>
+      <h1>Calibrate your AI partnership network</h1>
+      <p>
+        Set trust, autonomy, and role scope for Maya, Devon, and Priya. These settings
+        implement the four Collaborative AI capabilities — metacognition, contextual
+        mode-switching, uncertainty-aware action, and adaptive human collaboration.
+      </p>
+    </div>
+
+    ${renderCalibrationSubsteps()}
+
+    ${stepRenderers[state.calibrationStep]()}
+
+    <div class="step-actions">
+      <button class="btn btn-ghost" data-action="calibration-back" ${isFirst ? "disabled" : ""}>
+        Back
+      </button>
+      ${
+        isLast
+          ? `<button class="btn btn-primary" data-action="complete-calibration">
+              Complete Calibration → Multi-AI Network Setup
+            </button>`
+          : `<button class="btn btn-primary" data-action="calibration-next">Continue</button>`
+      }
+    </div>
+  `;
+}
+
+// ---------- Stub routes for the rest of the journey ----------
+
+function renderStub(title, description) {
+  return `
+    <div class="page-header">
+      <h1>${title}</h1>
+      <p>${description}</p>
+    </div>
+    <div class="stub-card">
+      Not built in this prototype pass — Partnership Calibration was the focus.
+      The journey stepper above is wired so this screen is reachable, ready for
+      the next build pass.
+    </div>
+    <div class="step-actions">
+      <button class="btn btn-ghost" data-action="goto-journey" data-route="calibration">
+        ← Back to Partnership Calibration
+      </button>
+      <span></span>
+    </div>
+  `;
+}
+
+// ---------- Router ----------
+
+function render() {
+  renderStepper();
+  switch (state.route) {
+    case "welcome":
+      root.innerHTML = renderWelcome();
+      break;
+    case "calibration":
+      root.innerHTML = renderCalibration();
+      break;
+    case "network":
+      root.innerHTML = renderStub(
+        "Multi-AI Network Setup",
+        "Confirm how Maya, Devon, and Priya coordinate and hand off context to one another."
+      );
+      break;
+    case "collaboration":
+      root.innerHTML = renderStub(
+        "First Collaboration",
+        "Run a live task through the calibrated network and see the three agents work together."
+      );
+      break;
+    case "dashboard":
+      root.innerHTML = renderStub(
+        "Partnership Dashboard",
+        "Ongoing trust scores, reasoning transparency, and network intelligence across projects."
+      );
+      break;
+  }
+}
+
+// ---------- Event delegation ----------
+
+document.getElementById("app").addEventListener("click", (e) => {
+  const el = e.target.closest("[data-action]");
+  if (!el) return;
+  const action = el.dataset.action;
+
+  switch (action) {
+    case "goto-journey":
+      state.route = el.dataset.route;
+      break;
+
+    case "goto-substep":
+      state.calibrationStep = Number(el.dataset.step);
+      break;
+
+    case "select-wizard":
+      state.wizardAnswers[el.dataset.question] = el.dataset.option;
+      break;
+
+    case "select-autonomy":
+      state.autonomy[el.dataset.agent] = el.dataset.level;
+      break;
+
+    case "toggle-responsibility": {
+      const { agent, resp } = el.dataset;
+      state.responsibilities[agent][resp] = !state.responsibilities[agent][resp];
+      break;
+    }
+
+    case "calibration-next":
+      state.calibrationStep = Math.min(
+        state.calibrationStep + 1,
+        CALIBRATION_SUBSTEPS.length - 1
+      );
+      break;
+
+    case "calibration-back":
+      state.calibrationStep = Math.max(state.calibrationStep - 1, 0);
+      break;
+
+    case "complete-calibration":
+      state.route = "network";
+      break;
+
+    default:
+      return;
+  }
+  render();
+});
+
+render();
+
+</script>
