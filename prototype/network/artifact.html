@@ -1,3 +1,6 @@
+<meta charset="utf-8">
+<title>PNI Network</title>
+<style>
 /*
   PNI — Nocturne Design System
   ----------------------------
@@ -645,3 +648,259 @@ main {
   text-align: left;
   color: var(--text-muted);
 }
+
+/*
+  Multi-AI Network Setup — builds on theme.css tokens.
+  Reuses agent-card / check-list / trust-pill from theme.css so agent
+  identity stays visually consistent with Partnership Calibration; the
+  only new pieces here are the page shell and the cross-team coordination
+  preview card.
+*/
+
+.network-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .network-wrap { padding: var(--space-4); }
+}
+
+.network-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 780px) {
+  .network-grid { grid-template-columns: 1fr; }
+}
+
+.agent-card .specialization-list {
+  margin-top: var(--space-2);
+}
+
+.dash-section {
+  margin-top: var(--space-6);
+}
+
+.dash-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dash-section-head h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dash-section-head p {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.coordination-quote {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.6;
+  border-left: 2px solid var(--accent);
+  padding-left: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.coordination-quote b {
+  color: var(--accent-strong);
+}
+
+.coordination-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+</style>
+
+    <div id="network-app">
+      <header class="topnav">
+        <a class="topnav-brand-link" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM">
+          <div class="topnav-brand">
+            <span class="mark"></span>
+            <span class="brand-text">Partnership Network Intelligence</span>
+          </div>
+        </a>
+        <nav class="app-nav">
+          <a class="app-nav-tab" href="https://claude.ai/artifact/Y7aqVh8nfyLiPf91PC1t7P">Workspace</a>
+          <a class="app-nav-tab" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo">Dashboard</a>
+          <span class="app-nav-tab is-active">Network</span>
+        </nav>
+      </header>
+
+      <main class="network-wrap">
+        <div class="page-header">
+          <div class="eyebrow">Network</div>
+          <h1>Your AI network</h1>
+          <p>
+            Maya, Devon, Priya, and Content AI, with their current trust levels and
+            specializations. This is the same network you calibrated during setup —
+            adjust autonomy and trust anytime from Partnership Calibration.
+          </p>
+        </div>
+
+        <div class="agent-grid network-grid" id="agent-grid"></div>
+
+        <section class="dash-section">
+          <div class="dash-section-head">
+            <div>
+              <h2>Cross-team coordination</h2>
+              <p>How the network surfaces agreement between agents, not just individual suggestions.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-label">Example coordinated insight</div>
+            <p class="hint">
+              When two or more agents independently reach compatible conclusions, the network
+              surfaces it as one combined suggestion instead of two separate ones — so you review
+              a plan, not a pile of notifications.
+            </p>
+            <p class="coordination-quote">
+              <b>Maya + Priya agreement:</b> ROI-focused positioning (Strategy) pairs well with a
+              LinkedIn-first distribution plan (Distribution) for the PM/Growth-leader audience —
+              the network is suggesting an integrated approach for the DataPulse AI launch.
+            </p>
+            <div class="coordination-actions">
+              <button class="btn btn-ghost btn-sm" type="button">Accept Coordinated Plan</button>
+              <button class="btn btn-ghost btn-sm" type="button">Modify Combination</button>
+              <button class="btn btn-ghost btn-sm" type="button">Request Coordination Details</button>
+              <button class="btn btn-ghost btn-sm" type="button">Split Decisions</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="card" style="margin-top: var(--space-6);">
+          <div class="card-title">Recalibrate the network</div>
+          <p class="hint" style="margin-top: var(--space-2);">
+            Trust and autonomy aren't locked in after setup — revisit Partnership
+            Calibration anytime to adjust how much each partner can act on its own.
+          </p>
+          <div class="step-actions">
+            <span></span>
+            <a class="btn btn-ghost" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA">Open Partnership Calibration →</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+<script>
+/*
+  Network (Use app's ongoing tab) — the same agent roster as the
+  onboarding Multi-AI Network Setup screen (js/network-setup.js), shown
+  with settings framing instead of introductory framing since this is
+  reached from the persistent app-nav, not the onboarding stepper.
+
+  Intentionally duplicated rather than imported: this is a flat
+  multi-file prototype with no shared module system across plain
+  scripts. When this ports to React (see README.md), both screens should
+  read from one AGENTS source instead of two copies.
+*/
+
+const AGENTS = [
+  {
+    id: "maya",
+    name: "Maya",
+    role: "Strategy",
+    initials: "M",
+    trust: 91,
+    blurb: "Aligns positioning, messaging, and campaign direction with your strategic goals.",
+    specializations: [
+      "Positioning & messaging recommendations",
+      "Strategic alignment checks on drafts",
+      "Campaign roadmap sequencing",
+    ],
+  },
+  {
+    id: "devon",
+    name: "Devon",
+    role: "Research",
+    initials: "D",
+    trust: 89,
+    blurb: "Surfaces market research, citations, and competitive context to back every claim.",
+    specializations: [
+      "Market & competitive research",
+      "Fact-checking & source citation",
+      "Statistical claim verification",
+    ],
+  },
+  {
+    id: "priya",
+    name: "Priya",
+    role: "Distribution",
+    initials: "P",
+    trust: 93,
+    blurb: "Plans channel mix, timing, and distribution mechanics once content is ready.",
+    specializations: [
+      "Channel & format selection",
+      "Send / publish timing recommendations",
+      "Cross-channel repurposing suggestions",
+    ],
+  },
+  {
+    id: "content",
+    name: "Content AI",
+    role: "Writing & Editing",
+    initials: "C",
+    trust: 76,
+    blurb: "Refines drafts for clarity, tone consistency, and completeness as the network's writing partner.",
+    specializations: [
+      "Writing enhancement & clarity suggestions",
+      "Tone and brand-voice consistency checks",
+      "Content gap identification (missing CTAs, examples)",
+    ],
+  },
+];
+
+function trustClass(score) {
+  if (score >= 80) return "high";
+  if (score >= 60) return "medium";
+  return "low";
+}
+
+function renderAgentGrid() {
+  return AGENTS.map(
+    (agent) => `
+    <div class="agent-card">
+      <div class="agent-head">
+        <div class="agent-identity">
+          <div class="agent-avatar">${agent.initials}</div>
+          <div>
+            <div class="agent-name">${agent.name}</div>
+            <div class="agent-role">${agent.role}</div>
+          </div>
+        </div>
+        <span class="trust-pill ${trustClass(agent.trust)}">${agent.trust}% trust</span>
+      </div>
+      <p class="hint" style="margin-bottom: var(--space-4);">${agent.blurb}</p>
+      <div class="section-label">Specializations</div>
+      <div class="check-list specialization-list">
+        ${agent.specializations
+          .map(
+            (label) => `
+          <div class="check-item is-checked">
+            <span class="check-box"></span>
+            <span class="check-label">${label}</span>
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+    </div>
+  `
+  ).join("");
+}
+
+document.getElementById("agent-grid").innerHTML = renderAgentGrid();
+
+</script>

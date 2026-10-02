@@ -1,6 +1,9 @@
 /*
-  First Collaboration — vanilla JS, same pattern as dashboard.js: plain
-  data + a small state object + a delegated click listener + re-render.
+  Workspace (formerly "First Collaboration") — vanilla JS, same pattern as
+  dashboard.js: plain data + a small state object + a delegated click
+  listener + re-render. Renamed as part of the Learn & Set Up / Use split:
+  this screen is the ongoing, everyday workspace, not a one-time step, so
+  it no longer carries "first" in its name or a step-N-of-5 eyebrow.
 
   Content sourced from the project's own docs:
   - NETWORK-ACTIVITY-FUNCTIONALITY.md → the four contribution types (Maya/

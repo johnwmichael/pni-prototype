@@ -200,6 +200,14 @@ main {
   }
 }
 
+@media (max-width: 480px) {
+  /* Free up room for the stepper / app-nav on narrow phones — the mark
+     icon stays as a brand anchor, the wordmark text goes. */
+  .brand-text {
+    display: none;
+  }
+}
+
 /* ---------- Journey stepper ---------- */
 
 .stepper {
@@ -207,6 +215,7 @@ main {
   align-items: center;
   gap: var(--space-2);
   overflow-x: auto;
+  min-width: 0;
 }
 
 .stepper-step {
@@ -250,6 +259,48 @@ main {
   height: 1px;
   background: var(--border);
   flex: none;
+}
+
+/* ---------- App shell nav (Use: Workspace / Dashboard / Network) ----------
+   Deliberately NOT the onboarding stepper — no step numbers, no progress
+   dots, no "done" state. This is a persistent tab bar for an app someone
+   returns to, not a wizard they move through once. */
+
+.topnav-brand-link {
+  color: inherit;
+}
+
+.topnav-brand-link:hover .topnav-brand {
+  opacity: 0.85;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.app-nav-tab {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-faint);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color 120ms ease, background 120ms ease;
+  white-space: nowrap;
+  flex: none;
+}
+
+.app-nav-tab:hover {
+  color: var(--text);
+  background: var(--surface-raised);
+}
+
+.app-nav-tab.is-active {
+  color: var(--text);
+  background: var(--accent-soft);
 }
 
 /* ---------- Cards ---------- */
@@ -1069,7 +1120,7 @@ html {
     <nav class="landing-nav">
       <div class="topnav-brand">
         <span class="mark"></span>
-        Partnership Network Intelligence
+        <span class="brand-text">Partnership Network Intelligence</span>
       </div>
       <div class="landing-nav-links">
         <a class="nav-anchor" href="#gap">The Gap</a>

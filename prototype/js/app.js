@@ -23,7 +23,7 @@ import {
 */
 
 const state = {
-  route: "calibration", // 'welcome' | 'calibration' | 'network' | 'collaboration' | 'dashboard'
+  route: "calibration", // 'welcome' | 'calibration' | 'network' — onboarding only; Workspace/Dashboard/Network (ongoing) live outside this app, see css/theme.css's .app-nav
   calibrationStep: 0, // 0: wizard, 1: agents, 2: roles & review
   wizardAnswers: {}, // { [questionId]: optionId }
   autonomy: { ...DEFAULT_AUTONOMY }, // { [agentId]: levelId }
@@ -66,6 +66,10 @@ function renderStepper() {
       </button>
     `;
   }).join("");
+  // The stepper can be wider than the viewport on narrow phones — make
+  // sure the active step is actually visible rather than scrolled off.
+  const activeEl = topnavStepper.querySelector(".is-active");
+  if (activeEl) activeEl.scrollIntoView({ inline: "center", block: "nearest" });
 }
 
 // ---------- Route: Welcome ----------
@@ -73,7 +77,7 @@ function renderStepper() {
 function renderWelcome() {
   return `
     <div class="page-header">
-      <div class="eyebrow">Partnership Network Intelligence</div>
+      <div class="eyebrow">Learn &amp; Set Up</div>
       <h1>Welcome to your AI partnership</h1>
       <p>
         PNI moves beyond individual AI productivity into team-level collaborative
@@ -85,9 +89,9 @@ function renderWelcome() {
       <div class="card-title">What happens next</div>
       <div class="card-subtitle" style="margin-top: var(--space-3); line-height: 1.6;">
         1. Partnership Calibration — set trust, autonomy, and roles for Maya, Devon, and Priya.<br/>
-        2. Multi-AI Network Setup — confirm how the three agents coordinate with each other.<br/>
-        3. First Collaboration — run a live task through the calibrated network.<br/>
-        4. Partnership Dashboard — track trust, confidence, and outcomes over time.
+        2. Multi-AI Network Setup — meet the full network, including Content AI.<br/>
+        3. Enter your Workspace — once set up, you're in the product: Workspace, Dashboard,
+        and Network become a persistent app, not a step-by-step flow.
       </div>
       <div class="step-actions">
         <span></span>
@@ -150,8 +154,8 @@ function renderWizardStep() {
 function renderAgentsStep() {
   return `
     <div class="hint" style="margin-bottom: var(--space-5);">
-      Each partner's autonomy can be recalibrated any time from the Trust Dashboard —
-      this just sets where they start.
+      Each partner's autonomy can be recalibrated any time from the Network tab once
+      you're up and running — this just sets where they start.
     </div>
     <div class="agent-grid">
       ${AGENTS.map((agent) => {
@@ -273,7 +277,7 @@ function renderCalibration() {
 
   return `
     <div class="page-header">
-      <div class="eyebrow">Step 2 of 5 · Partnership Calibration</div>
+      <div class="eyebrow">Step 2 of 3 · Partnership Calibration</div>
       <h1>Calibrate your AI partnership network</h1>
       <p>
         Set trust, autonomy, and role scope for Maya, Devon, and Priya. These settings
@@ -328,27 +332,9 @@ function renderJourneyLink({ title, description, href, cta }) {
 function renderNetworkLink() {
   return renderJourneyLink({
     title: "Multi-AI Network Setup",
-    description: "Meet Maya, Devon, Priya, and Content AI, and preview how the network surfaces cross-agent agreement.",
+    description: "Meet Maya, Devon, Priya, and Content AI, and preview how the network surfaces cross-agent agreement. The last stop in Learn & Set Up — from here you enter your Workspace.",
     href: "../network-setup/index.html",
     cta: "Open Multi-AI Network Setup →",
-  });
-}
-
-function renderCollaborationLink() {
-  return renderJourneyLink({
-    title: "First Collaboration",
-    description: "Run a live task through the calibrated network — a predictive next step, a shared draft, and the network working alongside you.",
-    href: "../first-collaboration/index.html",
-    cta: "Open First Collaboration →",
-  });
-}
-
-function renderDashboardLink() {
-  return renderJourneyLink({
-    title: "Partnership Dashboard",
-    description: "Trust evolution, network intelligence, collaboration quality, and the decision trail — built as its own page.",
-    href: "../dashboard/index.html",
-    cta: "Open Partnership Dashboard →",
   });
 }
 
@@ -365,12 +351,6 @@ function render() {
       break;
     case "network":
       root.innerHTML = renderNetworkLink();
-      break;
-    case "collaboration":
-      root.innerHTML = renderCollaborationLink();
-      break;
-    case "dashboard":
-      root.innerHTML = renderDashboardLink();
       break;
   }
 }

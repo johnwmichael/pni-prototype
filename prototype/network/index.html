@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PNI — Multi-AI Network Setup</title>
+    <title>PNI — Network</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/network-setup.css" />
@@ -11,27 +11,27 @@
   <body>
     <div id="network-app">
       <header class="topnav">
-        <div class="topnav-brand">
-          <span class="mark"></span>
-          <span class="brand-text">Partnership Network Intelligence</span>
-        </div>
-        <nav class="stepper">
-          <a class="stepper-step is-done" href="../landing/index.html"><span class="dot"></span>Welcome</a>
-          <div class="stepper-sep"></div>
-          <a class="stepper-step is-done" href="../index.html"><span class="dot"></span>Partnership Calibration</a>
-          <div class="stepper-sep"></div>
-          <span class="stepper-step is-active"><span class="dot"></span>Multi-AI Network Setup</span>
+        <a class="topnav-brand-link" href="../landing/index.html">
+          <div class="topnav-brand">
+            <span class="mark"></span>
+            <span class="brand-text">Partnership Network Intelligence</span>
+          </div>
+        </a>
+        <nav class="app-nav">
+          <a class="app-nav-tab" href="../workspace/index.html">Workspace</a>
+          <a class="app-nav-tab" href="../dashboard/index.html">Dashboard</a>
+          <span class="app-nav-tab is-active">Network</span>
         </nav>
       </header>
 
       <main class="network-wrap">
         <div class="page-header">
-          <div class="eyebrow">Step 3 of 3 · Multi-AI Network Setup</div>
-          <h1>Meet your AI network</h1>
+          <div class="eyebrow">Network</div>
+          <h1>Your AI network</h1>
           <p>
-            Maya, Devon, and Priya carry the trust and role settings you just calibrated.
-            Content AI joins here as the network's fourth member — the writing partner
-            the other three hand context to once a draft is underway.
+            Maya, Devon, Priya, and Content AI, with their current trust levels and
+            specializations. This is the same network you calibrated during setup —
+            adjust autonomy and trust anytime from Partnership Calibration.
           </p>
         </div>
 
@@ -41,7 +41,7 @@
           <div class="dash-section-head">
             <div>
               <h2>Cross-team coordination</h2>
-              <p>A preview of how the network surfaces agreement between agents, not just individual suggestions.</p>
+              <p>How the network surfaces agreement between agents, not just individual suggestions.</p>
             </div>
           </div>
           <div class="card">
@@ -65,12 +65,19 @@
           </div>
         </section>
 
-        <div class="step-actions">
-          <a class="btn btn-ghost" href="../index.html">← Back to Partnership Calibration</a>
-          <a class="btn btn-primary" href="../workspace/index.html">Enter Your Workspace →</a>
+        <div class="card" style="margin-top: var(--space-6);">
+          <div class="card-title">Recalibrate the network</div>
+          <p class="hint" style="margin-top: var(--space-2);">
+            Trust and autonomy aren't locked in after setup — revisit Partnership
+            Calibration anytime to adjust how much each partner can act on its own.
+          </p>
+          <div class="step-actions">
+            <span></span>
+            <a class="btn btn-ghost" href="../index.html">Open Partnership Calibration →</a>
+          </div>
         </div>
       </main>
     </div>
-    <script src="../js/network-setup.js"></script>
+    <script src="../js/network.js"></script>
   </body>
 </html>

@@ -1,15 +1,13 @@
 /*
-  Multi-AI Network Setup — vanilla JS, mirrors the pattern from app.js and
-  dashboard.js: plain data + a render step, no framework.
+  Network (Use app's ongoing tab) — the same agent roster as the
+  onboarding Multi-AI Network Setup screen (js/network-setup.js), shown
+  with settings framing instead of introductory framing since this is
+  reached from the persistent app-nav, not the onboarding stepper.
 
-  Agent bios/specializations echo Partnership Calibration's roster
-  (js/data.js) so identity stays consistent across the journey; trust
-  scores match the "this week" values on the Partnership Dashboard's
-  Trust Evolution chart (91/89/93). Content AI is introduced here as the
-  network's fourth member — its role and contribution types are sourced
-  from NETWORK-ACTIVITY-FUNCTIONALITY.md's "CONTENT AI Contributions"
-  section, and its 76% trust score from SITE-ARCHITECTURE.md's AI Network
-  sidebar spec.
+  Intentionally duplicated rather than imported: this is a flat
+  multi-file prototype with no shared module system across plain
+  scripts. When this ports to React (see README.md), both screens should
+  read from one AGENTS source instead of two copies.
 */
 
 const AGENTS = [
@@ -107,9 +105,3 @@ function renderAgentGrid() {
 }
 
 document.getElementById("agent-grid").innerHTML = renderAgentGrid();
-
-// This page's stepper is static HTML (not re-rendered from JS), but can
-// still be wider than the viewport on narrow phones — scroll the active
-// step into view so it isn't hidden off-screen.
-const activeStep = document.querySelector(".stepper .is-active");
-if (activeStep) activeStep.scrollIntoView({ inline: "center", block: "nearest" });

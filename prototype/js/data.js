@@ -154,12 +154,15 @@ export const WIZARD_QUESTIONS = [
   },
 ];
 
+// Learn & Set Up only — the onboarding track someone moves through once.
+// First Collaboration/Workspace and Partnership Dashboard are no longer
+// part of this stepper: they're the ongoing "Use" app (see
+// css/theme.css's .app-nav), reached once onboarding finishes rather than
+// stepped through.
 export const JOURNEY_STEPS = [
   { id: "welcome", label: "Welcome" },
   { id: "calibration", label: "Partnership Calibration" },
   { id: "network", label: "Multi-AI Network Setup" },
-  { id: "collaboration", label: "First Collaboration" },
-  { id: "dashboard", label: "Partnership Dashboard" },
 ];
 
 export const CALIBRATION_SUBSTEPS = [

@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>First Collaboration</title>
+<title>PNI Workspace</title>
 <style>
 /*
   PNI — Nocturne Design System
@@ -200,6 +200,14 @@ main {
   }
 }
 
+@media (max-width: 480px) {
+  /* Free up room for the stepper / app-nav on narrow phones — the mark
+     icon stays as a brand anchor, the wordmark text goes. */
+  .brand-text {
+    display: none;
+  }
+}
+
 /* ---------- Journey stepper ---------- */
 
 .stepper {
@@ -207,6 +215,7 @@ main {
   align-items: center;
   gap: var(--space-2);
   overflow-x: auto;
+  min-width: 0;
 }
 
 .stepper-step {
@@ -250,6 +259,48 @@ main {
   height: 1px;
   background: var(--border);
   flex: none;
+}
+
+/* ---------- App shell nav (Use: Workspace / Dashboard / Network) ----------
+   Deliberately NOT the onboarding stepper — no step numbers, no progress
+   dots, no "done" state. This is a persistent tab bar for an app someone
+   returns to, not a wizard they move through once. */
+
+.topnav-brand-link {
+  color: inherit;
+}
+
+.topnav-brand-link:hover .topnav-brand {
+  opacity: 0.85;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.app-nav-tab {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-faint);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color 120ms ease, background 120ms ease;
+  white-space: nowrap;
+  flex: none;
+}
+
+.app-nav-tab:hover {
+  color: var(--text);
+  background: var(--surface-raised);
+}
+
+.app-nav-tab.is-active {
+  color: var(--text);
+  background: var(--accent-soft);
 }
 
 /* ---------- Cards ---------- */
@@ -599,7 +650,7 @@ main {
 }
 
 /*
-  First Collaboration — builds on theme.css tokens.
+  Workspace (formerly "First Collaboration") — builds on theme.css tokens.
 
   Loosely modeled on an earlier Helix Workspace reference screen (a live
   content-collaboration workspace: project context bar, a predictive
@@ -1038,26 +1089,22 @@ main {
 
     <div id="workspace-app">
       <header class="topnav">
-        <div class="topnav-brand">
-          <span class="mark"></span>
-          Partnership Network Intelligence
-        </div>
-        <nav class="stepper">
-          <a class="stepper-step is-done" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM"><span class="dot"></span>Welcome</a>
-          <div class="stepper-sep"></div>
-          <a class="stepper-step is-done" href="https://claude.ai/artifact/Tt86WLhJhmyMDkNkTcgpPA"><span class="dot"></span>Partnership Calibration</a>
-          <div class="stepper-sep"></div>
-          <a class="stepper-step is-done" href="https://claude.ai/artifact/LwyjViyYPCWjh6J7v6yiBe"><span class="dot"></span>Multi-AI Network Setup</a>
-          <div class="stepper-sep"></div>
-          <span class="stepper-step is-active"><span class="dot"></span>First Collaboration</span>
-          <div class="stepper-sep"></div>
-          <a class="stepper-step" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo"><span class="dot"></span>Partnership Dashboard</a>
+        <a class="topnav-brand-link" href="https://claude.ai/artifact/NQqYLyDCooGLr1r73G7ujM">
+          <div class="topnav-brand">
+            <span class="mark"></span>
+            <span class="brand-text">Partnership Network Intelligence</span>
+          </div>
+        </a>
+        <nav class="app-nav">
+          <span class="app-nav-tab is-active">Workspace</span>
+          <a class="app-nav-tab" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo">Dashboard</a>
+          <a class="app-nav-tab" href="https://claude.ai/artifact/RBXfZED8M4kwRu21e8vSzf">Network</a>
         </nav>
       </header>
 
       <main class="workspace-wrap">
         <div class="page-header" style="margin-bottom: var(--space-4);">
-          <div class="eyebrow">Step 4 of 5 · First Collaboration</div>
+          <div class="eyebrow">Workspace</div>
           <h1>DataPulse AI — Product Launch Blog Post</h1>
         </div>
 
@@ -1122,18 +1169,16 @@ main {
             </div>
           </div>
         </div>
-
-        <div class="step-actions">
-          <a class="btn btn-ghost" href="https://claude.ai/artifact/LwyjViyYPCWjh6J7v6yiBe">← Back to Multi-AI Network Setup</a>
-          <a class="btn btn-primary" href="https://claude.ai/artifact/HpHsF9yKn7HC1feiHpvzPo">Continue to Partnership Dashboard →</a>
-        </div>
       </main>
     </div>
 
 <script>
 /*
-  First Collaboration — vanilla JS, same pattern as dashboard.js: plain
-  data + a small state object + a delegated click listener + re-render.
+  Workspace (formerly "First Collaboration") — vanilla JS, same pattern as
+  dashboard.js: plain data + a small state object + a delegated click
+  listener + re-render. Renamed as part of the Learn & Set Up / Use split:
+  this screen is the ongoing, everyday workspace, not a one-time step, so
+  it no longer carries "first" in its name or a step-N-of-5 eyebrow.
 
   Content sourced from the project's own docs:
   - NETWORK-ACTIVITY-FUNCTIONALITY.md → the four contribution types (Maya/
