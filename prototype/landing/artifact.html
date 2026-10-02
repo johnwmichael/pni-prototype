@@ -1,7 +1,6 @@
 <meta charset="utf-8">
 <title>Partnership Network Intelligence</title>
 <style>
-html { scroll-behavior: smooth; }
 /*
   PNI — Nocturne Design System
   ----------------------------
@@ -80,6 +79,7 @@ h1, h2, h3, h4, p {
 
 button {
   font-family: var(--font);
+  color: inherit;
 }
 
 /* ---------- Buttons ---------- */
@@ -137,6 +137,11 @@ button {
 .btn:disabled:hover {
   border-color: var(--border);
   background: transparent;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
 }
 
 /* ---------- Layout shell ---------- */
@@ -399,6 +404,7 @@ main {
 .choice-body .choice-label {
   font-size: 14px;
   font-weight: 500;
+  color: var(--text);
 }
 
 .choice-body .choice-desc {
@@ -597,6 +603,10 @@ main {
   and components live here so theme.css stays reusable across every
   screen (app + landing).
 */
+
+html {
+  scroll-behavior: smooth;
+}
 
 .landing-nav {
   display: flex;
@@ -1055,7 +1065,8 @@ main {
 }
 
 </style>
-<nav class="landing-nav">
+
+    <nav class="landing-nav">
       <div class="topnav-brand">
         <span class="mark"></span>
         Partnership Network Intelligence
@@ -1223,3 +1234,4 @@ main {
         <span>Built on 100+ academic papers, incl. Karunanayake et al. (2026)</span>
       </footer>
     </div>
+  

@@ -4,6 +4,10 @@
   screen (app + landing).
 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 .landing-nav {
   display: flex;
   align-items: center;
