@@ -7,6 +7,7 @@
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/workspace.css" />
+    <link rel="stylesheet" href="../css/workspace-design.css" />
   </head>
   <body>
     <div id="workspace-app">
@@ -51,7 +52,7 @@
           </button>
         </div>
 
-        <div class="workspace-grid">
+        <div class="workspace-grid" id="write-view">
           <div>
             <div class="predictive-card" id="predictive-card"></div>
 
@@ -97,6 +98,14 @@
             </div>
           </div>
         </div>
+
+        <div class="workspace-grid" id="design-view" hidden>
+          <div>
+            <div class="dz-toolbar" id="design-toolbar"></div>
+            <div id="design-canvas"></div>
+          </div>
+          <div id="design-panel"></div>
+        </div>
       </main>
 
       <!-- Preview drawer: overlay from the right, content follows the active tab -->
@@ -116,6 +125,7 @@
         <div class="drawer-foot" id="drawer-foot"></div>
       </aside>
     </div>
+    <script src="../js/workspace-design.js"></script>
     <script src="../js/workspace.js"></script>
   </body>
 </html>

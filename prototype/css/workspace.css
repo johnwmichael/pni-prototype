@@ -306,82 +306,6 @@ body.drawer-open { overflow: hidden; }
   margin-top: var(--space-3);
 }
 
-/* Design preview — wireframe + hero stat */
-
-.pv-wire {
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: var(--space-5);
-  display: grid;
-  gap: var(--space-4);
-}
-
-.pv-wire-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-
-.pv-wire-line {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--surface-raised);
-}
-
-.pv-wire-line--title { height: 12px; width: 70%; }
-.pv-wire-line--short { width: 55%; }
-
-.pv-stat {
-  border: 1px solid var(--accent);
-  background: var(--accent-soft);
-  border-radius: var(--radius);
-  padding: var(--space-5);
-  text-align: center;
-}
-
-.pv-stat-num {
-  font-size: 44px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--accent-strong);
-}
-
-.pv-stat-cap {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-top: var(--space-2);
-}
-
-.pv-wire-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-}
-
-.pv-wire-tile {
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-3);
-  display: grid;
-  gap: var(--space-2);
-}
-
-.pv-wire-tile span {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--surface-raised);
-}
-
-.pv-wire-tile i {
-  height: 6px;
-  border-radius: 3px;
-  background: var(--surface-raised);
-}
-
 /* Code preview */
 
 .pv-code-head {
@@ -814,3 +738,5 @@ body.drawer-open { overflow: hidden; }
 .network-note b {
   color: var(--text-muted);
 }
+
+[hidden] { display: none !important; }

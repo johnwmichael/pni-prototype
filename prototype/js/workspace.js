@@ -90,7 +90,7 @@ const state = {
 
 const TAB_META = {
   write: { eyebrow: "Write · in progress", title: "Article preview", status: "Live draft" },
-  design: { eyebrow: "Design · in progress", title: "Visual brief preview", status: "Brief drafted" },
+  design: { eyebrow: "Design · in progress", title: "Visual brief preview", status: "Live canvas" },
   code: { eyebrow: "Code · in progress", title: "Embed snippet preview", status: "Snippet drafted" },
   analyze: { eyebrow: "Analyze · in progress", title: "Projected impact preview", status: "Estimates only" },
 };
@@ -244,27 +244,7 @@ function drawerWritePreview() {
 }
 
 function drawerDesignPreview() {
-  return {
-    status: `<span>Infographic · mid-section</span><span>Not yet produced</span>`,
-    body: `
-      <div class="pv-wire">
-        <div class="pv-wire-label">Wireframe</div>
-        <div class="pv-wire-line pv-wire-line--title"></div>
-        <div class="pv-stat">
-          <div class="pv-stat-num">3:1</div>
-          <div class="pv-stat-cap">PM and growth audiences prefer visual data over text</div>
-        </div>
-        <div class="pv-wire-row">
-          <div class="pv-wire-tile"><span></span><i></i></div>
-          <div class="pv-wire-tile"><span></span><i></i></div>
-          <div class="pv-wire-tile"><span></span><i></i></div>
-        </div>
-        <div class="pv-wire-line"></div>
-        <div class="pv-wire-line pv-wire-line--short"></div>
-      </div>
-      <p class="pv-note">Brief: lead with the 3:1 stat, then three tiles contrasting one story against a dozen dashboards. Dark theme, brand accent only.</p>`,
-    foot: `<div class="pv-progress-label">Source: Devon + Research AI · suggested, not yet created</div>`,
-  };
+  return designPreview(); // live view of the Design canvas (js/workspace-design.js)
 }
 
 function drawerCodePreview() {
@@ -342,8 +322,16 @@ function setDrawer(open) {
   }
 }
 
+function renderViews() {
+  const design = state.tab === "design";
+  document.getElementById("write-view").hidden = design;
+  document.getElementById("design-view").hidden = !design;
+}
+
 function render() {
   renderTabs();
+  renderViews();
+  renderDesign();
   renderPredictive();
   renderEditor();
   renderActivity();
@@ -370,6 +358,7 @@ document.getElementById("workspace-app").addEventListener("click", (e) => {
   }
   if (action === "toggle-drawer") setDrawer(!state.drawerOpen);
   if (action === "close-drawer") setDrawer(false);
+  handleDesignAction(action, el); // Design tab actions (js/workspace-design.js)
 });
 
 document.addEventListener("keydown", (e) => {
