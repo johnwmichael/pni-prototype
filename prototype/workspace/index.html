@@ -39,10 +39,16 @@
         </div>
 
         <div class="tab-strip">
-          <span class="tab is-active">Write</span>
-          <span class="tab">Design</span>
-          <span class="tab">Code</span>
-          <span class="tab">Analyze</span>
+          <div class="tab-list" role="tablist" aria-label="Workspace mode" id="tab-list">
+            <button class="tab is-active" type="button" role="tab" aria-selected="true" data-action="set-tab" data-tab="write">Write</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-action="set-tab" data-tab="design">Design</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-action="set-tab" data-tab="code">Code</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-action="set-tab" data-tab="analyze">Analyze</button>
+          </div>
+          <button class="btn btn-sm preview-btn" type="button" id="preview-btn"
+                  data-action="toggle-drawer" aria-expanded="false" aria-controls="preview-drawer">
+            <span class="preview-btn-icon" aria-hidden="true">◧</span>Preview
+          </button>
         </div>
 
         <div class="workspace-grid">
@@ -92,6 +98,23 @@
           </div>
         </div>
       </main>
+
+      <!-- Preview drawer: overlay from the right, content follows the active tab -->
+      <div class="drawer-scrim" id="drawer-scrim" data-action="close-drawer"></div>
+      <aside class="drawer" id="preview-drawer" role="dialog" aria-modal="true"
+             aria-labelledby="drawer-title" inert>
+        <div class="drawer-head">
+          <div>
+            <div class="drawer-eyebrow" id="drawer-eyebrow"></div>
+            <h2 class="drawer-title" id="drawer-title">Preview</h2>
+          </div>
+          <button class="drawer-close" type="button" id="drawer-close"
+                  data-action="close-drawer" aria-label="Close preview">✕</button>
+        </div>
+        <div class="drawer-status" id="drawer-status"></div>
+        <div class="drawer-body" id="drawer-body"></div>
+        <div class="drawer-foot" id="drawer-foot"></div>
+      </aside>
     </div>
     <script src="../js/workspace.js"></script>
   </body>
