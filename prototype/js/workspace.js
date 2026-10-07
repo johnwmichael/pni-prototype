@@ -72,9 +72,9 @@ const MOVES = [
   },
 ];
 
+// UI-level state only. Per-project work (Write draft, Design canvas, Code
+// thread) lives on PROJECT — see workspace-project.js.
 const state = {
-  applied: false,
-  openMove: null,
   tab: "write", // write | design | code | analyze
   drawerOpen: false,
 };
@@ -91,7 +91,7 @@ const state = {
 const TAB_META = {
   write: { eyebrow: "Write · in progress", title: "Article preview", status: "Live draft" },
   design: { eyebrow: "Design · in progress", title: "Visual brief preview", status: "Live canvas" },
-  code: { eyebrow: "Code · in progress", title: "Embed snippet preview", status: "Snippet drafted" },
+  code: { eyebrow: "Code · in progress", title: "Embed snippet preview", status: "Live artifact" },
   analyze: { eyebrow: "Analyze · in progress", title: "Projected impact preview", status: "Estimates only" },
 };
 
@@ -117,7 +117,7 @@ function wordCount(el) {
 
 function renderPredictive() {
   const el = document.getElementById("predictive-card");
-  if (state.applied) {
+  if (PROJECT.write.applied) {
     el.classList.add("is-applied");
     el.innerHTML = `
       <div class="predictive-head">
@@ -166,7 +166,7 @@ function renderEditor() {
   const surface = document.getElementById("editor-surface");
   const paras = [...DRAFT_INTRO];
   let appliedHtml = "";
-  if (state.applied) {
+  if (PROJECT.write.applied) {
     appliedHtml = `<p class="is-new">${APPLIED_PARAGRAPH}</p>`;
   }
   surface.innerHTML = paras.map((p) => `<p>${p}</p>`).join("") + appliedHtml;
@@ -193,14 +193,14 @@ function renderActivity() {
 function renderMoves() {
   document.getElementById("moves-list").innerHTML = MOVES.map(
     (m, i) => `
-    <div class="move-row ${state.openMove === i ? "is-open" : ""}">
+    <div class="move-row ${PROJECT.write.openMove === i ? "is-open" : ""}">
       <div class="move-top">
         <div class="move-title">${m.title}</div>
         <div class="move-confidence">${m.confidence}%</div>
       </div>
       <div class="move-source">${m.source}</div>
       <button class="move-why-btn" data-action="toggle-why" data-index="${i}">
-        ${state.openMove === i ? "Hide reasoning" : "Why? →"}
+        ${PROJECT.write.openMove === i ? "Hide reasoning" : "Why? →"}
       </button>
       <div class="move-rationale">${m.rationale}</div>
     </div>
@@ -217,9 +217,9 @@ function renderTabs() {
 }
 
 function drawerWritePreview() {
-  const paras = state.applied ? [...DRAFT_INTRO, APPLIED_PARAGRAPH] : DRAFT_INTRO;
+  const paras = PROJECT.write.applied ? [...DRAFT_INTRO, APPLIED_PARAGRAPH] : DRAFT_INTRO;
   const words = paras.join(" ").split(/\s+/).filter(Boolean).length;
-  const placeholders = state.applied
+  const placeholders = PROJECT.write.applied
     ? WRITE_PLACEHOLDERS
     : ["Competitive differentiation — waiting on Start Writing", ...WRITE_PLACEHOLDERS];
   const drafted = paras.length;
@@ -231,7 +231,7 @@ function drawerWritePreview() {
         <div class="pv-kicker">Blog · Product launch</div>
         <h3 class="pv-headline">DataPulse AI: one shared source of truth for your go-to-market team</h3>
         ${paras
-          .map((p, i) => `<p class="${state.applied && i === paras.length - 1 ? "is-new" : ""}">${p}</p>`)
+          .map((p, i) => `<p class="${PROJECT.write.applied && i === paras.length - 1 ? "is-new" : ""}">${p}</p>`)
           .join("")}
         ${placeholders.map((t) => `<div class="pv-placeholder">${t}</div>`).join("")}
       </article>`,
@@ -248,21 +248,7 @@ function drawerDesignPreview() {
 }
 
 function drawerCodePreview() {
-  return {
-    status: `<span>HTML embed</span><span>Not yet deployed</span>`,
-    body: `
-      <div class="pv-code-head"><span>launch-embed.html</span><span>read-only</span></div>
-      <pre class="pv-code"><code>&lt;!-- DataPulse AI launch: hero embed --&gt;
-&lt;script src="https://cdn.datapulse.example/embed.js" async&gt;&lt;/script&gt;
-
-&lt;div
-  data-datapulse-dashboard="launch-overview"
-  data-theme="dark"
-  data-utm="blog_launch_w6"&gt;
-&lt;/div&gt;</code></pre>
-      <p class="pv-note">Drops the live dashboard into the post and tags traffic so Week 6 results can be attributed back to this article.</p>`,
-    foot: `<div class="pv-progress-label">Source: Content AI · suggested, not yet deployed</div>`,
-  };
+  return codePreview(); // live view of the Code artifact (js/workspace-code.js)
 }
 
 function drawerAnalyzePreview() {
@@ -324,14 +310,17 @@ function setDrawer(open) {
 
 function renderViews() {
   const design = state.tab === "design";
-  document.getElementById("write-view").hidden = design;
+  document.getElementById("write-view").hidden = state.tab === "design" || state.tab === "code";
   document.getElementById("design-view").hidden = !design;
+  document.getElementById("code-view").hidden = state.tab !== "code";
 }
 
 function render() {
+  renderProjectHeader();
   renderTabs();
   renderViews();
   renderDesign();
+  renderCode(false);
   renderPredictive();
   renderEditor();
   renderActivity();
@@ -344,12 +333,12 @@ document.getElementById("workspace-app").addEventListener("click", (e) => {
   if (!el) return;
   const action = el.dataset.action;
   if (action === "start-writing") {
-    state.applied = true;
+    PROJECT.write.applied = true;
     render();
   }
   if (action === "toggle-why") {
     const i = Number(el.dataset.index);
-    state.openMove = state.openMove === i ? null : i;
+    PROJECT.write.openMove = PROJECT.write.openMove === i ? null : i;
     render();
   }
   if (action === "set-tab") {
@@ -359,6 +348,7 @@ document.getElementById("workspace-app").addEventListener("click", (e) => {
   if (action === "toggle-drawer") setDrawer(!state.drawerOpen);
   if (action === "close-drawer") setDrawer(false);
   handleDesignAction(action, el); // Design tab actions (js/workspace-design.js)
+  handleCodeAction(action, el); // Code tab actions (js/workspace-code.js)
 });
 
 document.addEventListener("keydown", (e) => {

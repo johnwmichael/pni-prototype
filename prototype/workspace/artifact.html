@@ -1783,6 +1783,275 @@ body.drawer-open { overflow: hidden; }
 .dz-trail-top b { color: var(--text); font-weight: 600; }
 .dz-trail-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; margin-top: 2px; }
 
+/*
+  Workspace · Code tab — shared thread + live artifact.
+  Builds on theme.css tokens and the shared sidebar-card / avatar / pv-code
+  styles in workspace.css and workspace-design.css.
+*/
+
+:root { --peer-you: var(--accent); }
+
+.avatar--ai {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border: 1.5px solid var(--accent);
+}
+
+/* ---------- Context panel ("what this code can see") ---------- */
+
+.cx-context {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.cx-context-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.cx-context-head h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cx-context-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+@media (max-width: 760px) { .cx-context-grid { grid-template-columns: 1fr; } }
+
+.cx-ctx {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  background: var(--bg);
+}
+
+.cx-ctx-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.cx-ctx-title { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.cx-ctx-used { font-size: 11.5px; color: var(--accent-strong); margin-top: 6px; }
+
+/* ---------- Two-column grid ---------- */
+
+.cx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 980px) { .cx-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Thread ---------- */
+
+.cx-thread-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.cx-thread-head {
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.cx-thread {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  padding: var(--space-4);
+  height: 520px;
+  overflow-y: auto;
+}
+
+.msg { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: var(--space-3); }
+
+.msg .avatar { margin-top: 2px; }
+
+.msg-top { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font-size: 13px; }
+.msg-top b { color: var(--text); font-weight: 600; }
+.msg-top .activity-time { margin-left: auto; }
+
+.msg-text { font-size: 13.5px; line-height: 1.55; color: var(--text); margin-top: 4px; }
+
+.msg--event {
+  display: block;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+.msg--event span {
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 3px var(--space-3);
+}
+
+/* proposal card inside a message */
+
+.cx-prop {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.cx-prop.is-applied { border-color: var(--status-high); }
+.cx-prop.is-dismissed { opacity: 0.6; }
+
+.cx-prop-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2); }
+
+.diff {
+  margin-top: var(--space-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+}
+
+.diff-line {
+  display: flex;
+  gap: var(--space-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 1px var(--space-3);
+  white-space: pre;
+  background: rgba(127, 216, 168, 0.1);
+  color: var(--text);
+}
+
+.diff-sign { color: var(--status-high); font-weight: 700; }
+
+.cx-why {
+  display: none;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-soft);
+}
+
+.cx-why.is-open { display: block; }
+
+/* composer */
+
+.cx-composer { border-top: 1px solid var(--border-soft); padding: var(--space-3) var(--space-4) var(--space-4); }
+
+.prompt-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.prompt-row:empty { display: none; }
+
+.prompt-chip {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--accent-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.prompt-chip:hover { background: var(--accent-soft); border-color: var(--accent); }
+.prompt-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.composer-row { display: flex; gap: var(--space-2); }
+
+.composer-row input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  padding: 8px 12px;
+}
+
+.composer-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- Artifact ---------- */
+
+.cx-artifact {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.cx-art-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.cx-file { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
+.cx-file b { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.cx-art-actions { display: flex; align-items: center; gap: var(--space-2); }
+
+.cx-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: var(--text-muted);
+}
+
+.cx-chip--review, .cx-chip--changed { border-color: var(--status-medium); color: var(--status-medium); }
+.cx-chip--approved { border-color: var(--status-high); color: var(--status-high); }
+
+.code-block {
+  background: var(--bg);
+  padding: var(--space-3) 0;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.code-block:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.cl {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  padding-right: var(--space-4);
+}
+
+.cl-n { text-align: right; color: var(--text-faint); user-select: none; }
+.cl-code { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
+.cl-tag { font-family: var(--font); font-size: 10.5px; color: var(--text-faint); text-align: right; white-space: nowrap; align-self: center; }
+
+.cl.is-added { background: rgba(127, 216, 168, 0.1); box-shadow: inset 2px 0 0 var(--status-high); }
+.cl.is-added .cl-tag { color: var(--status-high); }
+
+.cx-art-foot {
+  border-top: 1px solid var(--border-soft);
+  padding: var(--space-3) var(--space-4);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
 </style>
 
     <div id="workspace-app">
@@ -1803,16 +2072,10 @@ body.drawer-open { overflow: hidden; }
       <main class="workspace-wrap">
         <div class="page-header" style="margin-bottom: var(--space-4);">
           <div class="eyebrow">Workspace</div>
-          <h1>DataPulse AI — Product Launch Blog Post</h1>
+          <h1 id="project-title"></h1>
         </div>
 
-        <div class="context-bar">
-          <span class="context-chip"><b>You:</b> Marketing Manager</span>
-          <span class="context-chip"><b>Project:</b> DataPulse AI Launch</span>
-          <span class="context-chip"><b>Phase:</b> Week 6 / 12 · Pre-launch</span>
-          <span class="context-chip"><b>Audience:</b> PM / Growth leaders</span>
-          <span class="context-chip is-accent">✨ Context loaded from 7 prior decisions</span>
-        </div>
+        <div class="context-bar" id="context-bar"></div>
 
         <div class="tab-strip">
           <div class="tab-list" role="tablist" aria-label="Workspace mode" id="tab-list">
@@ -1881,6 +2144,27 @@ body.drawer-open { overflow: hidden; }
           </div>
           <div id="design-panel"></div>
         </div>
+
+        <div class="code-view" id="code-view" hidden>
+          <section class="cx-context" id="code-context"></section>
+          <div class="cx-grid">
+            <div class="cx-thread-card">
+              <div class="sidebar-head cx-thread-head">
+                <h3>Thread · embed the dashboard</h3>
+                <span class="presence-note">You, Sam + 4 AI roles</span>
+              </div>
+              <div class="cx-thread" id="code-thread" aria-live="polite"></div>
+              <div class="cx-composer">
+                <div class="prompt-row" id="code-prompts"></div>
+                <div class="composer-row">
+                  <input type="text" id="code-input" placeholder="Message the team or @mention an AI role…" aria-label="Message the thread" autocomplete="off" />
+                  <button class="btn btn-primary btn-sm" type="button" data-action="code-send">Send</button>
+                </div>
+              </div>
+            </div>
+            <div class="cx-artifact" id="code-artifact"></div>
+          </div>
+        </div>
       </main>
 
       <!-- Preview drawer: overlay from the right, content follows the active tab -->
@@ -1902,7 +2186,52 @@ body.drawer-open { overflow: hidden; }
     </div>
 
 
+
+
 <script>
+/*
+  Workspace · project model.
+
+  Until now the Workspace was hardcoded to one project. This is the
+  foundation for many: everything that belongs to "the work in progress" —
+  the Write draft, the Design canvas, the Code thread — hangs off a single
+  PROJECT object, and the header (title, context chips) renders from it.
+
+  Today there is exactly one project and it is always the active one. The
+  later "switch / create project" pass should make this a registry
+  ({ [id]: project } + an activeProjectId) and turn the per-module aliases
+  (`dstate` in workspace-design.js, `cstate` in workspace-code.js, and
+  PROJECT.write here) into accessors on the active project, then re-render.
+
+  Loaded first: workspace-design.js and workspace-code.js attach their own
+  slices (PROJECT.design / PROJECT.code) when they load.
+*/
+
+const PROJECT = {
+  id: "datapulse-launch",
+  name: "DataPulse AI Launch",
+  title: "DataPulse AI — Product Launch Blog Post",
+  phase: "Week 6 / 12 · Pre-launch",
+  audience: "PM / Growth leaders",
+  userRole: "Marketing Manager",
+  priorDecisions: 7,
+
+  // Slices owned by each tab. Write lives here; the others attach on load.
+  write: { applied: false, openMove: null },
+  design: null, // set in workspace-design.js
+  code: null, // set in workspace-code.js
+};
+
+function renderProjectHeader() {
+  document.getElementById("project-title").textContent = PROJECT.title;
+  document.getElementById("context-bar").innerHTML = `
+    <span class="context-chip"><b>You:</b> ${escHTML(PROJECT.userRole)}</span>
+    <span class="context-chip"><b>Project:</b> ${escHTML(PROJECT.name)}</span>
+    <span class="context-chip"><b>Phase:</b> ${escHTML(PROJECT.phase)}</span>
+    <span class="context-chip"><b>Audience:</b> ${escHTML(PROJECT.audience)}</span>
+    <span class="context-chip is-accent">✨ Context loaded from ${PROJECT.priorDecisions} prior decisions</span>`;
+}
+
 /*
   Workspace · Design tab — a collaborative infographic-brief canvas.
 
@@ -2022,7 +2351,7 @@ function freshSugStatus() {
   return s;
 }
 
-const dstate = {
+const dstate = (PROJECT.design = {
   d: designDefault(),
   sug: freshSugStatus(),
   comments: seedComments(),
@@ -2033,7 +2362,7 @@ const dstate = {
   openWhy: null,
   focusItem: null,
   editSnap: null,
-};
+});
 
 /* ---------- Helpers ---------- */
 
@@ -2489,6 +2818,488 @@ document.addEventListener("keydown", (e) => {
 });
 
 /*
+  Workspace · Code tab — a shared thread with a live artifact.
+
+  A Claude-style interface, built for collaboration rather than one person
+  and one AI taking turns:
+  - The thread has many voices — you, teammates (Sam), and the AI network
+    (Devon, Maya, Priya, Content AI) — each tagged, each with a role.
+  - AI agents propose changes as diffs inside the thread, with source,
+    confidence and a "Why?"; a human applies or dismisses them.
+  - The artifact (launch-embed.html) sits beside the thread and is built
+    from the *active project*: the post title from Write, the headline and
+    hero-stat caption from Design. Edit those tabs and the code follows.
+  - A human review gate: request review -> approved. Any later change to
+    the code flips the status to "changed since approval".
+
+  Prototype notes: teammate replies and AI replies are scripted (the
+  composer recognises @mentions / keywords); nothing calls a model.
+
+  Plain script, loaded after workspace-project.js and workspace-design.js,
+  before workspace.js (shares its global scope).
+*/
+
+const CODE_FILE = "launch-embed.html";
+
+function codeAttr(s) {
+  return String(s).replace(/"/g, "&quot;");
+}
+
+// Proposals insert attribute lines after the data-theme line, in this order.
+const CODE_PROPOSALS = [
+  {
+    id: "p-lazy",
+    agent: "CONTENT AI",
+    by: "Content AI",
+    source: "Content AI",
+    title: "Load the embed lazily",
+    confidence: 91,
+    why: "High confidence: the embed sits below the fold on most screens, and deferring it until it scrolls into view keeps the post fast without changing what readers see.",
+    lines: () => [{ text: `  data-lazy="true"` }],
+  },
+  {
+    id: "p-utm",
+    agent: "PRIYA · DISTRIBUTION",
+    by: "Priya",
+    source: "Distribution AI · via Priya",
+    title: "Tag traffic for attribution",
+    confidence: 86,
+    why: "High confidence: a campaign tag on the embed lets Week 6 results be attributed back to this post, which is what the Analyze tab's projections need to become measurements.",
+    lines: () => [{ text: `  data-utm="blog_launch_w6"` }],
+  },
+  {
+    id: "p-track",
+    agent: "DEVON · RESEARCH",
+    by: "Devon",
+    source: "Research AI · via Devon",
+    title: "Track scroll depth and CTA clicks",
+    confidence: 78,
+    why: "Medium confidence: tracking real behavior is the way to test the 3:1 visual-over-text finding on this audience, but the event names are a guess until you confirm what your analytics expects.",
+    lines: () => [{ text: `  data-track="scroll-depth,cta-click"` }],
+  },
+  {
+    id: "p-caption",
+    agent: "MAYA · STRATEGY",
+    by: "Maya",
+    source: "Strategy AI · via Maya",
+    title: "Echo the 3:1 finding in the embed",
+    confidence: 90,
+    why: "High confidence: the embed should say the same thing as the infographic. This line is linked to the Design tab's hero-stat caption, so it updates if that caption changes.",
+    lines: () => [{ text: `  data-caption="${codeAttr(PROJECT.design.d.stat.caption)}"`, from: "Design" }],
+  },
+];
+
+// Suggested prompts: asking an agent surfaces its proposal in the thread.
+const CODE_PROMPTS = [
+  {
+    id: "q-utm",
+    label: "@Priya tag this for attribution",
+    text: "@Priya can we tag this embed so Week 6 traffic attributes back to this post?",
+    proposal: "p-utm",
+    reply: "Yes. I'm tagging it with the Week 6 campaign so Analyze can attribute results to this post. Proposed change below.",
+  },
+  {
+    id: "q-track",
+    label: "@Devon track engagement",
+    text: "@Devon what should we track to test the visual-over-text finding?",
+    proposal: "p-track",
+    reply: "Scroll depth and CTA clicks. That tests the 3:1 finding against real reader behavior, not just interviews.",
+  },
+  {
+    id: "q-caption",
+    label: "@Maya echo the 3:1 finding",
+    text: "@Maya can the embed echo the stat from our infographic?",
+    proposal: "p-caption",
+    reply: "Pulling the hero-stat caption from the Design brief, so the embed and the infographic always say the same thing.",
+  },
+];
+
+const AGENTS = {
+  "Content AI": { initials: "CA", role: "Content AI" },
+  Priya: { initials: "PR", role: "Distribution" },
+  Devon: { initials: "DV", role: "Research" },
+  Maya: { initials: "MY", role: "Strategy" },
+};
+
+PROJECT.code = {
+  proposals: { "p-lazy": "open", "p-utm": "hidden", "p-track": "hidden", "p-caption": "hidden" },
+  thread: [
+    { id: 1, kind: "human", who: "Sam Rivera", initials: "SR", color: "a", role: "Design Lead", time: "8m ago",
+      text: "We need the live dashboard embedded in the post's hero section. Can someone draft the snippet?" },
+    { id: 2, kind: "ai", who: "Content AI", time: "6m ago", proposal: "p-lazy",
+      text: "Drafted launch-embed.html. It reads the post title from Write and the headline from Design, so the embed's label always matches the brief. One change I'd make before it goes live:" },
+  ],
+  nextId: 3,
+  review: "draft", // draft | review | approved
+  approvedText: null,
+  copied: false,
+};
+
+const cstate = PROJECT.code;
+
+/* ---------- Artifact ---------- */
+
+function buildCode() {
+  const d = PROJECT.design.d;
+  const lines = [
+    { text: `<!-- ${PROJECT.title} · hero embed -->`, from: "Write" },
+    { text: `<script src="https://cdn.datapulse.example/embed.js" async></script>` },
+    { text: `` },
+    { text: `<div` },
+    { text: `  data-datapulse-dashboard="launch-overview"` },
+    { text: `  data-theme="dark"` },
+  ];
+  CODE_PROPOSALS.forEach((p) => {
+    if (cstate.proposals[p.id] === "applied") {
+      p.lines().forEach((l) => lines.push({ ...l, added: p.id }));
+    }
+  });
+  lines.push({ text: `  aria-label="${codeAttr(d.headline.text)}"`, from: "Design" });
+  lines.push({ text: `></div>` });
+  return lines;
+}
+
+function codeText() {
+  return buildCode().map((l) => l.text).join("\n");
+}
+
+function reviewStatus() {
+  if (cstate.review === "approved") {
+    return codeText() === cstate.approvedText ? "approved" : "changed";
+  }
+  return cstate.review; // draft | review
+}
+
+const STATUS_LABEL = {
+  draft: "Draft · needs review",
+  review: "In review · waiting on Sam",
+  approved: "Approved by Sam",
+  changed: "Changed since approval",
+};
+
+function appliedCount() {
+  return Object.values(cstate.proposals).filter((s) => s === "applied").length;
+}
+
+function openProposalCount() {
+  return Object.values(cstate.proposals).filter((s) => s === "open").length;
+}
+
+/* ---------- Render ---------- */
+
+function contextHTML() {
+  const d = PROJECT.design.d;
+  const w = PROJECT.write;
+  const words = (DRAFT_INTRO.join(" ") + (w.applied ? " " + APPLIED_PARAGRAPH : ""))
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const cap = cstate.proposals["p-caption"] === "applied";
+  const utm = cstate.proposals["p-utm"] === "applied";
+  const cards = [
+    {
+      tab: "write", label: "Write",
+      title: PROJECT.title,
+      meta: `${words} words · ${w.applied ? "competitive section drafted" : "intro drafted"}`,
+      used: "Used in: comment header",
+    },
+    {
+      tab: "design", label: "Design",
+      title: d.headline.text,
+      meta: `Hero stat ${d.stat.value}`,
+      used: `Used in: aria-label${cap ? ", data-caption" : ""}`,
+    },
+    {
+      tab: "analyze", label: "Analyze",
+      title: "Target: +40% series completion",
+      meta: "Network estimates · Priya",
+      used: utm ? "Used in: data-utm" : "Not used yet",
+    },
+  ];
+  return `
+    <div class="cx-context-head">
+      <h3>What this code can see</h3>
+      <span class="live-pill"><span class="dot"></span>Live from ${escHTML(PROJECT.name)}</span>
+    </div>
+    <div class="cx-context-grid">
+      ${cards
+        .map(
+          (c) => `
+        <div class="cx-ctx">
+          <div class="cx-ctx-top"><span class="activity-agent">${c.label}</span>
+            <button class="move-why-btn" type="button" data-action="set-tab" data-tab="${c.tab}">Open →</button></div>
+          <div class="cx-ctx-title">${escHTML(c.title)}</div>
+          <div class="move-source">${escHTML(c.meta)}</div>
+          <div class="cx-ctx-used">${c.used}</div>
+        </div>`
+        )
+        .join("")}
+    </div>`;
+}
+
+function diffHTML(p) {
+  return p
+    .lines()
+    .map((l) => `<div class="diff-line"><span class="diff-sign">+</span><span>${escHTML(l.text)}</span></div>`)
+    .join("");
+}
+
+function proposalHTML(p) {
+  const st = cstate.proposals[p.id];
+  const n = p.lines().length;
+  let actions;
+  if (st === "open") {
+    actions = `<button class="btn btn-primary btn-sm" type="button" data-action="code-apply" data-id="${p.id}">Apply</button>
+               <button class="btn btn-ghost btn-sm" type="button" data-action="code-dismiss" data-id="${p.id}">Dismiss</button>`;
+  } else if (st === "applied") {
+    actions = `<span class="dz-state dz-state--applied">✓ Applied</span>
+               <button class="btn btn-ghost btn-sm" type="button" data-action="code-revert" data-id="${p.id}">Revert</button>`;
+  } else {
+    actions = `<span class="dz-state">Dismissed</span>
+               <button class="btn btn-ghost btn-sm" type="button" data-action="code-revert" data-id="${p.id}">Restore</button>`;
+  }
+  return `
+    <div class="cx-prop is-${st}">
+      <div class="cx-prop-top">
+        <div class="move-title">${p.title}</div>
+        <div class="move-confidence">${p.confidence}%</div>
+      </div>
+      <div class="move-source">${p.source}</div>
+      <div class="diff">${diffHTML(p)}</div>
+      <div class="dz-actions">${actions}<span class="dz-state">+${n} line${n > 1 ? "s" : ""}</span></div>
+      <button class="move-why-btn" type="button" data-action="code-why" data-id="${p.id}">${cstate.openWhy === p.id ? "Hide reasoning" : "Why? →"}</button>
+      <div class="cx-why ${cstate.openWhy === p.id ? "is-open" : ""}">${p.why}</div>
+    </div>`;
+}
+
+function messageHTML(m) {
+  if (m.kind === "event") {
+    return `<div class="msg msg--event"><span>${escHTML(m.text)}</span></div>`;
+  }
+  const ai = m.kind === "ai";
+  const you = m.kind === "you";
+  const meta = ai ? AGENTS[m.who] : null;
+  const initials = you ? "JM" : ai ? meta.initials : m.initials;
+  const role = you ? "Marketing Manager" : ai ? meta.role : m.role;
+  const avatarStyle = ai ? "" : ` style="--peer: var(--peer-${you ? "you" : m.color})"`;
+  const prop = m.proposal ? CODE_PROPOSALS.find((p) => p.id === m.proposal) : null;
+  return `
+    <div class="msg ${ai ? "msg--ai" : ""}">
+      <span class="avatar avatar--sm ${ai ? "avatar--ai" : you ? "avatar--you" : ""}"${avatarStyle}>${initials}</span>
+      <div class="msg-main">
+        <div class="msg-top"><b>${escHTML(you ? "You" : m.who)}</b>
+          ${ai ? '<span class="activity-agent">AI</span>' : ""}
+          <span class="dz-role">${escHTML(role)}</span><span class="activity-time">${escHTML(m.time)}</span></div>
+        <div class="msg-text">${escHTML(m.text)}</div>
+        ${prop ? proposalHTML(prop) : ""}
+      </div>
+    </div>`;
+}
+
+function renderCodeThread(scroll) {
+  const el = document.getElementById("code-thread");
+  el.innerHTML = cstate.thread.map(messageHTML).join("");
+  if (scroll) el.scrollTop = el.scrollHeight;
+}
+
+function renderCodePrompts() {
+  const open = CODE_PROMPTS.filter((q) => cstate.proposals[q.proposal] === "hidden");
+  document.getElementById("code-prompts").innerHTML = open
+    .map((q) => `<button class="prompt-chip" type="button" data-action="code-ask" data-id="${q.id}">${escHTML(q.label)}</button>`)
+    .join("");
+}
+
+function renderCodeArtifact() {
+  const status = reviewStatus();
+  const lines = buildCode();
+  const body = lines
+    .map(
+      (l, i) => `
+    <div class="cl ${l.added ? "is-added" : ""}">
+      <span class="cl-n">${i + 1}</span>
+      <span class="cl-code">${escHTML(l.text) || " "}</span>
+      <span class="cl-tag">${l.from ? `from ${l.from}` : l.added ? "added" : ""}</span>
+    </div>`
+    )
+    .join("");
+  const canReview = status === "draft" || status === "changed";
+  document.getElementById("code-artifact").innerHTML = `
+    <div class="cx-art-head">
+      <div class="cx-file"><b>${CODE_FILE}</b><span class="cx-chip cx-chip--${status}">${STATUS_LABEL[status]}</span></div>
+      <div class="cx-art-actions">
+        <button class="btn btn-ghost btn-sm" type="button" data-action="code-copy">${cstate.copied ? "Copied ✓" : "Copy"}</button>
+        <button class="btn btn-primary btn-sm" type="button" data-action="code-review" ${canReview ? "" : "disabled"}>Request review</button>
+      </div>
+    </div>
+    <div class="code-block" role="region" aria-label="${CODE_FILE} source" tabindex="0">${body}</div>
+    <div class="cx-art-foot">${appliedCount()} change${appliedCount() === 1 ? "" : "s"} applied · ${openProposalCount()} open proposal${openProposalCount() === 1 ? "" : "s"}${
+      status === "approved" ? " · human approval recorded" : ""
+    }</div>`;
+}
+
+function renderCode(scroll) {
+  document.getElementById("code-context").innerHTML = contextHTML();
+  renderCodeThread(scroll);
+  renderCodePrompts();
+  renderCodeArtifact();
+}
+
+/* ---------- Drawer preview ---------- */
+
+function codePreview() {
+  const status = reviewStatus();
+  return {
+    status: `<span>${appliedCount()} change${appliedCount() === 1 ? "" : "s"} applied</span><span>${STATUS_LABEL[status]}</span>`,
+    body: `
+      <div class="pv-code-head"><span>${CODE_FILE}</span><span>read-only</span></div>
+      <pre class="pv-code"><code>${escHTML(codeText())}</code></pre>
+      <p class="pv-note">A live read-only view of the artifact in the Code tab. It's built from this project's Write and Design content, so it changes when they do.</p>`,
+    foot: `<div class="pv-progress-label">${openProposalCount()} open proposal${openProposalCount() === 1 ? "" : "s"} in the thread</div>`,
+  };
+}
+
+/* ---------- Thread logic ---------- */
+
+function pushMsg(m) {
+  cstate.thread.push({ id: cstate.nextId++, time: "Just now", ...m });
+}
+
+function surface(proposalId, who, text) {
+  if (cstate.proposals[proposalId] === "hidden") cstate.proposals[proposalId] = "open";
+  pushMsg({ kind: "ai", who, text, proposal: proposalId });
+}
+
+function agentFor(id) {
+  return CODE_PROPOSALS.find((p) => p.id === id).by;
+}
+
+function routeMessage(text) {
+  pushMsg({ kind: "you", who: "You", text });
+  const t = text.toLowerCase();
+  const match =
+    /@?priya|utm|attribut|campaign/.test(t) ? CODE_PROMPTS[0]
+    : /@?devon|track|scroll|engage|analytics/.test(t) ? CODE_PROMPTS[1]
+    : /@?maya|caption|3:1|stat|echo/.test(t) ? CODE_PROMPTS[2]
+    : null;
+  if (match && cstate.proposals[match.proposal] === "hidden") {
+    surface(match.proposal, agentFor(match.proposal), match.reply);
+  } else if (match) {
+    pushMsg({ kind: "ai", who: agentFor(match.proposal), text: "That's already proposed in this thread — see the change above." });
+  } else {
+    pushMsg({
+      kind: "ai",
+      who: "Content AI",
+      text: "Noted — it's in the thread for the team. (Prototype note: replies here are scripted; try asking @Priya, @Devon or @Maya.)",
+    });
+  }
+}
+
+function sendCodeMessage() {
+  const input = document.getElementById("code-input");
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = "";
+  routeMessage(text);
+  afterCodeChange(true);
+}
+
+function afterCodeChange(scroll) {
+  renderCode(scroll);
+  renderDrawer();
+}
+
+function handleCodeAction(action, el) {
+  const id = el.dataset.id;
+  switch (action) {
+    case "code-ask": {
+      const q = CODE_PROMPTS.find((x) => x.id === id);
+      pushMsg({ kind: "you", who: "You", text: q.text });
+      surface(q.proposal, agentFor(q.proposal), q.reply);
+      afterCodeChange(true);
+      return true;
+    }
+    case "code-send":
+      sendCodeMessage();
+      return true;
+    case "code-why":
+      cstate.openWhy = cstate.openWhy === id ? null : id;
+      renderCodeThread(false);
+      return true;
+    case "code-apply": {
+      const p = CODE_PROPOSALS.find((x) => x.id === id);
+      cstate.proposals[id] = "applied";
+      pushMsg({ kind: "event", text: `You applied ${p.by}'s change · ${p.title}` });
+      afterCodeChange(true);
+      return true;
+    }
+    case "code-dismiss": {
+      const p = CODE_PROPOSALS.find((x) => x.id === id);
+      cstate.proposals[id] = "dismissed";
+      pushMsg({ kind: "event", text: `You dismissed ${p.by}'s change · ${p.title}` });
+      afterCodeChange(true);
+      return true;
+    }
+    case "code-revert": {
+      const p = CODE_PROPOSALS.find((x) => x.id === id);
+      const wasApplied = cstate.proposals[id] === "applied";
+      cstate.proposals[id] = "open";
+      pushMsg({ kind: "event", text: `You ${wasApplied ? "reverted" : "restored"} ${p.by}'s change · ${p.title}` });
+      afterCodeChange(true);
+      return true;
+    }
+    case "code-review":
+      cstate.review = "review";
+      pushMsg({ kind: "you", who: "You", text: `@Sam can you review ${CODE_FILE}? ${appliedCount()} change${appliedCount() === 1 ? "" : "s"} applied so far.` });
+      afterCodeChange(true);
+      // simulated teammate reply
+      setTimeout(() => {
+        cstate.review = "approved";
+        cstate.approvedText = codeText();
+        pushMsg({ kind: "human", who: "Sam Rivera", initials: "SR", color: "a", role: "Design Lead", text: "Reviewed. Looks good to me, approving." });
+        afterCodeChange(true);
+      }, 1100);
+      return true;
+    case "code-copy":
+      copyText(codeText());
+      cstate.copied = true;
+      renderCodeArtifact();
+      setTimeout(() => {
+        cstate.copied = false;
+        renderCodeArtifact();
+      }, 1600);
+      return true;
+    default:
+      return false;
+  }
+}
+
+function copyText(text) {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => {});
+      return;
+    }
+  } catch (e) { /* fall through */ }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+  } catch (e) { /* clipboard unavailable; the label still resets */ }
+}
+
+document.addEventListener("keydown", (e) => {
+  if (state.tab !== "code") return;
+  if (e.key === "Enter" && e.target.id === "code-input") {
+    e.preventDefault();
+    sendCodeMessage();
+  }
+});
+
+/*
   Workspace (formerly "First Collaboration") — vanilla JS, same pattern as
   dashboard.js: plain data + a small state object + a delegated click
   listener + re-render. Renamed as part of the Learn & Set Up / Use split:
@@ -2562,9 +3373,9 @@ const MOVES = [
   },
 ];
 
+// UI-level state only. Per-project work (Write draft, Design canvas, Code
+// thread) lives on PROJECT — see workspace-project.js.
 const state = {
-  applied: false,
-  openMove: null,
   tab: "write", // write | design | code | analyze
   drawerOpen: false,
 };
@@ -2581,7 +3392,7 @@ const state = {
 const TAB_META = {
   write: { eyebrow: "Write · in progress", title: "Article preview", status: "Live draft" },
   design: { eyebrow: "Design · in progress", title: "Visual brief preview", status: "Live canvas" },
-  code: { eyebrow: "Code · in progress", title: "Embed snippet preview", status: "Snippet drafted" },
+  code: { eyebrow: "Code · in progress", title: "Embed snippet preview", status: "Live artifact" },
   analyze: { eyebrow: "Analyze · in progress", title: "Projected impact preview", status: "Estimates only" },
 };
 
@@ -2607,7 +3418,7 @@ function wordCount(el) {
 
 function renderPredictive() {
   const el = document.getElementById("predictive-card");
-  if (state.applied) {
+  if (PROJECT.write.applied) {
     el.classList.add("is-applied");
     el.innerHTML = `
       <div class="predictive-head">
@@ -2656,7 +3467,7 @@ function renderEditor() {
   const surface = document.getElementById("editor-surface");
   const paras = [...DRAFT_INTRO];
   let appliedHtml = "";
-  if (state.applied) {
+  if (PROJECT.write.applied) {
     appliedHtml = `<p class="is-new">${APPLIED_PARAGRAPH}</p>`;
   }
   surface.innerHTML = paras.map((p) => `<p>${p}</p>`).join("") + appliedHtml;
@@ -2683,14 +3494,14 @@ function renderActivity() {
 function renderMoves() {
   document.getElementById("moves-list").innerHTML = MOVES.map(
     (m, i) => `
-    <div class="move-row ${state.openMove === i ? "is-open" : ""}">
+    <div class="move-row ${PROJECT.write.openMove === i ? "is-open" : ""}">
       <div class="move-top">
         <div class="move-title">${m.title}</div>
         <div class="move-confidence">${m.confidence}%</div>
       </div>
       <div class="move-source">${m.source}</div>
       <button class="move-why-btn" data-action="toggle-why" data-index="${i}">
-        ${state.openMove === i ? "Hide reasoning" : "Why? →"}
+        ${PROJECT.write.openMove === i ? "Hide reasoning" : "Why? →"}
       </button>
       <div class="move-rationale">${m.rationale}</div>
     </div>
@@ -2707,9 +3518,9 @@ function renderTabs() {
 }
 
 function drawerWritePreview() {
-  const paras = state.applied ? [...DRAFT_INTRO, APPLIED_PARAGRAPH] : DRAFT_INTRO;
+  const paras = PROJECT.write.applied ? [...DRAFT_INTRO, APPLIED_PARAGRAPH] : DRAFT_INTRO;
   const words = paras.join(" ").split(/\s+/).filter(Boolean).length;
-  const placeholders = state.applied
+  const placeholders = PROJECT.write.applied
     ? WRITE_PLACEHOLDERS
     : ["Competitive differentiation — waiting on Start Writing", ...WRITE_PLACEHOLDERS];
   const drafted = paras.length;
@@ -2721,7 +3532,7 @@ function drawerWritePreview() {
         <div class="pv-kicker">Blog · Product launch</div>
         <h3 class="pv-headline">DataPulse AI: one shared source of truth for your go-to-market team</h3>
         ${paras
-          .map((p, i) => `<p class="${state.applied && i === paras.length - 1 ? "is-new" : ""}">${p}</p>`)
+          .map((p, i) => `<p class="${PROJECT.write.applied && i === paras.length - 1 ? "is-new" : ""}">${p}</p>`)
           .join("")}
         ${placeholders.map((t) => `<div class="pv-placeholder">${t}</div>`).join("")}
       </article>`,
@@ -2738,21 +3549,7 @@ function drawerDesignPreview() {
 }
 
 function drawerCodePreview() {
-  return {
-    status: `<span>HTML embed</span><span>Not yet deployed</span>`,
-    body: `
-      <div class="pv-code-head"><span>launch-embed.html</span><span>read-only</span></div>
-      <pre class="pv-code"><code>&lt;!-- DataPulse AI launch: hero embed --&gt;
-&lt;script src="https://cdn.datapulse.example/embed.js" async&gt;&lt;/script&gt;
-
-&lt;div
-  data-datapulse-dashboard="launch-overview"
-  data-theme="dark"
-  data-utm="blog_launch_w6"&gt;
-&lt;/div&gt;</code></pre>
-      <p class="pv-note">Drops the live dashboard into the post and tags traffic so Week 6 results can be attributed back to this article.</p>`,
-    foot: `<div class="pv-progress-label">Source: Content AI · suggested, not yet deployed</div>`,
-  };
+  return codePreview(); // live view of the Code artifact (js/workspace-code.js)
 }
 
 function drawerAnalyzePreview() {
@@ -2814,14 +3611,17 @@ function setDrawer(open) {
 
 function renderViews() {
   const design = state.tab === "design";
-  document.getElementById("write-view").hidden = design;
+  document.getElementById("write-view").hidden = state.tab === "design" || state.tab === "code";
   document.getElementById("design-view").hidden = !design;
+  document.getElementById("code-view").hidden = state.tab !== "code";
 }
 
 function render() {
+  renderProjectHeader();
   renderTabs();
   renderViews();
   renderDesign();
+  renderCode(false);
   renderPredictive();
   renderEditor();
   renderActivity();
@@ -2834,12 +3634,12 @@ document.getElementById("workspace-app").addEventListener("click", (e) => {
   if (!el) return;
   const action = el.dataset.action;
   if (action === "start-writing") {
-    state.applied = true;
+    PROJECT.write.applied = true;
     render();
   }
   if (action === "toggle-why") {
     const i = Number(el.dataset.index);
-    state.openMove = state.openMove === i ? null : i;
+    PROJECT.write.openMove = PROJECT.write.openMove === i ? null : i;
     render();
   }
   if (action === "set-tab") {
@@ -2849,6 +3649,7 @@ document.getElementById("workspace-app").addEventListener("click", (e) => {
   if (action === "toggle-drawer") setDrawer(!state.drawerOpen);
   if (action === "close-drawer") setDrawer(false);
   handleDesignAction(action, el); // Design tab actions (js/workspace-design.js)
+  handleCodeAction(action, el); // Code tab actions (js/workspace-code.js)
 });
 
 document.addEventListener("keydown", (e) => {

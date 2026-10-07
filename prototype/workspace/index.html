@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/workspace.css" />
     <link rel="stylesheet" href="../css/workspace-design.css" />
+    <link rel="stylesheet" href="../css/workspace-code.css" />
   </head>
   <body>
     <div id="workspace-app">
@@ -28,16 +29,10 @@
       <main class="workspace-wrap">
         <div class="page-header" style="margin-bottom: var(--space-4);">
           <div class="eyebrow">Workspace</div>
-          <h1>DataPulse AI — Product Launch Blog Post</h1>
+          <h1 id="project-title"></h1>
         </div>
 
-        <div class="context-bar">
-          <span class="context-chip"><b>You:</b> Marketing Manager</span>
-          <span class="context-chip"><b>Project:</b> DataPulse AI Launch</span>
-          <span class="context-chip"><b>Phase:</b> Week 6 / 12 · Pre-launch</span>
-          <span class="context-chip"><b>Audience:</b> PM / Growth leaders</span>
-          <span class="context-chip is-accent">✨ Context loaded from 7 prior decisions</span>
-        </div>
+        <div class="context-bar" id="context-bar"></div>
 
         <div class="tab-strip">
           <div class="tab-list" role="tablist" aria-label="Workspace mode" id="tab-list">
@@ -106,6 +101,27 @@
           </div>
           <div id="design-panel"></div>
         </div>
+
+        <div class="code-view" id="code-view" hidden>
+          <section class="cx-context" id="code-context"></section>
+          <div class="cx-grid">
+            <div class="cx-thread-card">
+              <div class="sidebar-head cx-thread-head">
+                <h3>Thread · embed the dashboard</h3>
+                <span class="presence-note">You, Sam + 4 AI roles</span>
+              </div>
+              <div class="cx-thread" id="code-thread" aria-live="polite"></div>
+              <div class="cx-composer">
+                <div class="prompt-row" id="code-prompts"></div>
+                <div class="composer-row">
+                  <input type="text" id="code-input" placeholder="Message the team or @mention an AI role…" aria-label="Message the thread" autocomplete="off" />
+                  <button class="btn btn-primary btn-sm" type="button" data-action="code-send">Send</button>
+                </div>
+              </div>
+            </div>
+            <div class="cx-artifact" id="code-artifact"></div>
+          </div>
+        </div>
       </main>
 
       <!-- Preview drawer: overlay from the right, content follows the active tab -->
@@ -125,7 +141,9 @@
         <div class="drawer-foot" id="drawer-foot"></div>
       </aside>
     </div>
+    <script src="../js/workspace-project.js"></script>
     <script src="../js/workspace-design.js"></script>
+    <script src="../js/workspace-code.js"></script>
     <script src="../js/workspace.js"></script>
   </body>
 </html>

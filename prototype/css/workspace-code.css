@@ -1,0 +1,268 @@
+/*
+  Workspace · Code tab — shared thread + live artifact.
+  Builds on theme.css tokens and the shared sidebar-card / avatar / pv-code
+  styles in workspace.css and workspace-design.css.
+*/
+
+:root { --peer-you: var(--accent); }
+
+.avatar--ai {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border: 1.5px solid var(--accent);
+}
+
+/* ---------- Context panel ("what this code can see") ---------- */
+
+.cx-context {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.cx-context-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.cx-context-head h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cx-context-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+@media (max-width: 760px) { .cx-context-grid { grid-template-columns: 1fr; } }
+
+.cx-ctx {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  background: var(--bg);
+}
+
+.cx-ctx-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.cx-ctx-title { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.cx-ctx-used { font-size: 11.5px; color: var(--accent-strong); margin-top: 6px; }
+
+/* ---------- Two-column grid ---------- */
+
+.cx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 980px) { .cx-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Thread ---------- */
+
+.cx-thread-card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.cx-thread-head {
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.cx-thread {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  padding: var(--space-4);
+  height: 520px;
+  overflow-y: auto;
+}
+
+.msg { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: var(--space-3); }
+
+.msg .avatar { margin-top: 2px; }
+
+.msg-top { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); font-size: 13px; }
+.msg-top b { color: var(--text); font-weight: 600; }
+.msg-top .activity-time { margin-left: auto; }
+
+.msg-text { font-size: 13.5px; line-height: 1.55; color: var(--text); margin-top: 4px; }
+
+.msg--event {
+  display: block;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+.msg--event span {
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 3px var(--space-3);
+}
+
+/* proposal card inside a message */
+
+.cx-prop {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  padding: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.cx-prop.is-applied { border-color: var(--status-high); }
+.cx-prop.is-dismissed { opacity: 0.6; }
+
+.cx-prop-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2); }
+
+.diff {
+  margin-top: var(--space-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+}
+
+.diff-line {
+  display: flex;
+  gap: var(--space-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 1px var(--space-3);
+  white-space: pre;
+  background: rgba(127, 216, 168, 0.1);
+  color: var(--text);
+}
+
+.diff-sign { color: var(--status-high); font-weight: 700; }
+
+.cx-why {
+  display: none;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-soft);
+}
+
+.cx-why.is-open { display: block; }
+
+/* composer */
+
+.cx-composer { border-top: 1px solid var(--border-soft); padding: var(--space-3) var(--space-4) var(--space-4); }
+
+.prompt-row { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.prompt-row:empty { display: none; }
+
+.prompt-chip {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--accent-strong);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.prompt-chip:hover { background: var(--accent-soft); border-color: var(--accent); }
+.prompt-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.composer-row { display: flex; gap: var(--space-2); }
+
+.composer-row input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  padding: 8px 12px;
+}
+
+.composer-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---------- Artifact ---------- */
+
+.cx-artifact {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.cx-art-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.cx-file { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
+.cx-file b { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.cx-art-actions { display: flex; align-items: center; gap: var(--space-2); }
+
+.cx-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  color: var(--text-muted);
+}
+
+.cx-chip--review, .cx-chip--changed { border-color: var(--status-medium); color: var(--status-medium); }
+.cx-chip--approved { border-color: var(--status-high); color: var(--status-high); }
+
+.code-block {
+  background: var(--bg);
+  padding: var(--space-3) 0;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.code-block:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.cl {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  padding-right: var(--space-4);
+}
+
+.cl-n { text-align: right; color: var(--text-faint); user-select: none; }
+.cl-code { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
+.cl-tag { font-family: var(--font); font-size: 10.5px; color: var(--text-faint); text-align: right; white-space: nowrap; align-self: center; }
+
+.cl.is-added { background: rgba(127, 216, 168, 0.1); box-shadow: inset 2px 0 0 var(--status-high); }
+.cl.is-added .cl-tag { color: var(--status-high); }
+
+.cx-art-foot {
+  border-top: 1px solid var(--border-soft);
+  padding: var(--space-3) var(--space-4);
+  font-size: 12px;
+  color: var(--text-faint);
+}

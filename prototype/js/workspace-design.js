@@ -117,7 +117,7 @@ function freshSugStatus() {
   return s;
 }
 
-const dstate = {
+const dstate = (PROJECT.design = {
   d: designDefault(),
   sug: freshSugStatus(),
   comments: seedComments(),
@@ -128,7 +128,7 @@ const dstate = {
   openWhy: null,
   focusItem: null,
   editSnap: null,
-};
+});
 
 /* ---------- Helpers ---------- */
 
